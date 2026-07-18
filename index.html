@@ -576,9 +576,66 @@
       gap: 15px;
       flex-wrap: wrap;
     }
-    .booking-bar.show { display: flex; }
-    .booking-bar .dates { font-size: 0.9rem; font-weight: 600; }
+    .booking-bar.show { display: flex; flex-direction: column; align-items: stretch; }
+    .booking-bar .dates { font-size: 0.9rem; font-weight: 600; text-align: center; }
     .booking-bar .dates span { color: var(--gold); }
+    .bk-payment-options { display: none; margin-top: 12px; width: 100%; }
+    .bk-payment-options.show { display: block; }
+    .bk-pay-title { font-size: 0.85rem; color: var(--gray); margin-bottom: 8px; text-align: center; font-weight: 600; }
+    .bk-pay-grid { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .bk-pay-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Cairo', sans-serif;
+      white-space: nowrap;
+    }
+    .bk-pay-btn:hover {
+      background: rgba(201,168,76,0.15);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .bk-pay-btn.active {
+      background: rgba(201,168,76,0.2);
+      border-color: var(--gold);
+    }
+    .bk-pay-info {
+      margin-top: 8px;
+      padding: 12px 16px;
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 10px;
+      text-align: right;
+      display: none;
+      font-size: 0.8rem;
+    }
+    .bk-pay-info.show { display: block; }
+    .bk-pay-info .bk-pi-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 3px 0; }
+    .bk-pi-label { color: var(--gray); font-weight: 600; }
+    .bk-pi-value { color: var(--gold-light); font-weight: 700; direction: ltr; font-size: 0.75rem; word-break: break-all; }
+    .bk-pi-copy {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .bk-pi-copy:hover { background: var(--gold); border-color: var(--gold); }
+    .bk-pi-copy.copied { background: var(--green); border-color: var(--green); }
+    .booking-bar .btn-whatsapp { align-self: center; }
 
     .btn-whatsapp {
       display: inline-flex;
@@ -974,9 +1031,18 @@
           <!-- Booking bar -->
           <div class="booking-bar" id="booking1">
             <div class="dates">📅 <span id="bk1-dates">اختر التاريخ</span></div>
+            <div class="bk-payment-options" id="bk1-pay">
+              <div class="bk-pay-title">💳 اختر وسيلة الدفع:</div>
+              <div class="bk-pay-grid">
+                <div class="bk-pay-btn" onclick="showPayment('bank','bk1')">🏦 تحويل بنكي</div>
+                <div class="bk-pay-btn" onclick="showPayment('stc','bk1')">📱 STC Pay</div>
+                <div class="bk-pay-btn" onclick="showPayment('barq','bk1')">⚡ برق</div>
+              </div>
+              <div class="bk-pay-info" id="bk1-pay-info"></div>
+            </div>
             <a class="btn-whatsapp" id="bk1-wa" target="_blank">
               <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              حجز عبر واتساب
+              تواصل واتساب
             </a>
           </div>
         </div>
@@ -1081,9 +1147,18 @@
           <!-- Booking bar -->
           <div class="booking-bar" id="booking2">
             <div class="dates">📅 <span id="bk2-dates">اختر التاريخ</span></div>
+            <div class="bk-payment-options" id="bk2-pay">
+              <div class="bk-pay-title">💳 اختر وسيلة الدفع:</div>
+              <div class="bk-pay-grid">
+                <div class="bk-pay-btn" onclick="showPayment('bank','bk2')">🏦 تحويل بنكي</div>
+                <div class="bk-pay-btn" onclick="showPayment('stc','bk2')">📱 STC Pay</div>
+                <div class="bk-pay-btn" onclick="showPayment('barq','bk2')">⚡ برق</div>
+              </div>
+              <div class="bk-pay-info" id="bk2-pay-info"></div>
+            </div>
             <a class="btn-whatsapp" id="bk2-wa" target="_blank">
               <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              حجز عبر واتساب
+              تواصل واتساب
             </a>
           </div>
         </div>
@@ -1167,9 +1242,18 @@
 
           <div class="booking-bar" id="booking5">
             <div class="dates">📅 <span id="bk5-dates">اختر التاريخ</span></div>
+            <div class="bk-payment-options" id="bk5-pay">
+              <div class="bk-pay-title">💳 اختر وسيلة الدفع:</div>
+              <div class="bk-pay-grid">
+                <div class="bk-pay-btn" onclick="showPayment('bank','bk5')">🏦 تحويل بنكي</div>
+                <div class="bk-pay-btn" onclick="showPayment('stc','bk5')">📱 STC Pay</div>
+                <div class="bk-pay-btn" onclick="showPayment('barq','bk5')">⚡ برق</div>
+              </div>
+              <div class="bk-pay-info" id="bk5-pay-info"></div>
+            </div>
             <a class="btn-whatsapp" id="bk5-wa" target="_blank">
               <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              حجز عبر واتساب
+              تواصل واتساب
             </a>
           </div>
         </div>
@@ -1249,9 +1333,18 @@
 
           <div class="booking-bar" id="booking6">
             <div class="dates">📅 <span id="bk6-dates">اختر التاريخ</span></div>
+            <div class="bk-payment-options" id="bk6-pay">
+              <div class="bk-pay-title">💳 اختر وسيلة الدفع:</div>
+              <div class="bk-pay-grid">
+                <div class="bk-pay-btn" onclick="showPayment('bank','bk6')">🏦 تحويل بنكي</div>
+                <div class="bk-pay-btn" onclick="showPayment('stc','bk6')">📱 STC Pay</div>
+                <div class="bk-pay-btn" onclick="showPayment('barq','bk6')">⚡ برق</div>
+              </div>
+              <div class="bk-pay-info" id="bk6-pay-info"></div>
+            </div>
             <a class="btn-whatsapp" id="bk6-wa" target="_blank">
               <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              حجز عبر واتساب
+              تواصل واتساب
             </a>
           </div>
         </div>
@@ -1346,9 +1439,18 @@
           <!-- Booking bar -->
           <div class="booking-bar" id="booking3">
             <div class="dates">📅 <span id="bk3-dates">اختر التاريخ</span></div>
+            <div class="bk-payment-options" id="bk3-pay">
+              <div class="bk-pay-title">💳 اختر وسيلة الدفع:</div>
+              <div class="bk-pay-grid">
+                <div class="bk-pay-btn" onclick="showPayment('bank','bk3')">🏦 تحويل بنكي</div>
+                <div class="bk-pay-btn" onclick="showPayment('stc','bk3')">📱 STC Pay</div>
+                <div class="bk-pay-btn" onclick="showPayment('barq','bk3')">⚡ برق</div>
+              </div>
+              <div class="bk-pay-info" id="bk3-pay-info"></div>
+            </div>
             <a class="btn-whatsapp" id="bk3-wa" target="_blank">
               <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              حجز عبر واتساب
+              تواصل واتساب
             </a>
           </div>
         </div>
@@ -1395,9 +1497,18 @@
           <!-- Booking bar -->
           <div class="booking-bar" id="booking4">
             <div class="dates">📅 <span id="bk4-dates">اختر التاريخ</span></div>
+            <div class="bk-payment-options" id="bk4-pay">
+              <div class="bk-pay-title">💳 اختر وسيلة الدفع:</div>
+              <div class="bk-pay-grid">
+                <div class="bk-pay-btn" onclick="showPayment('bank','bk4')">🏦 تحويل بنكي</div>
+                <div class="bk-pay-btn" onclick="showPayment('stc','bk4')">📱 STC Pay</div>
+                <div class="bk-pay-btn" onclick="showPayment('barq','bk4')">⚡ برق</div>
+              </div>
+              <div class="bk-pay-info" id="bk4-pay-info"></div>
+            </div>
             <a class="btn-whatsapp" id="bk4-wa" target="_blank">
               <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              حجز عبر واتساب
+              تواصل واتساب
             </a>
           </div>
         </div>
@@ -1442,9 +1553,18 @@
 
           <div class="booking-bar" id="booking7">
             <div class="dates">📅 <span id="bk7-dates">اختر التاريخ</span></div>
+            <div class="bk-payment-options" id="bk7-pay">
+              <div class="bk-pay-title">💳 اختر وسيلة الدفع:</div>
+              <div class="bk-pay-grid">
+                <div class="bk-pay-btn" onclick="showPayment('bank','bk7')">🏦 تحويل بنكي</div>
+                <div class="bk-pay-btn" onclick="showPayment('stc','bk7')">📱 STC Pay</div>
+                <div class="bk-pay-btn" onclick="showPayment('barq','bk7')">⚡ برق</div>
+              </div>
+              <div class="bk-pay-info" id="bk7-pay-info"></div>
+            </div>
             <a class="btn-whatsapp" id="bk7-wa" target="_blank">
               <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              حجز عبر واتساب
+              تواصل واتساب
             </a>
           </div>
         </div>
@@ -1489,9 +1609,18 @@
 
           <div class="booking-bar" id="booking8">
             <div class="dates">📅 <span id="bk8-dates">اختر التاريخ</span></div>
+            <div class="bk-payment-options" id="bk8-pay">
+              <div class="bk-pay-title">💳 اختر وسيلة الدفع:</div>
+              <div class="bk-pay-grid">
+                <div class="bk-pay-btn" onclick="showPayment('bank','bk8')">🏦 تحويل بنكي</div>
+                <div class="bk-pay-btn" onclick="showPayment('stc','bk8')">📱 STC Pay</div>
+                <div class="bk-pay-btn" onclick="showPayment('barq','bk8')">⚡ برق</div>
+              </div>
+              <div class="bk-pay-info" id="bk8-pay-info"></div>
+            </div>
             <a class="btn-whatsapp" id="bk8-wa" target="_blank">
               <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              حجز عبر واتساب
+              تواصل واتساب
             </a>
           </div>
         </div>
@@ -1849,6 +1978,8 @@
       const bar = document.getElementById(`booking${info.id}`);
       const datesSpan = document.getElementById(`bk${info.id}-dates`);
       const waLink = document.getElementById(`bk${info.id}-wa`);
+      const payOptions = document.getElementById(`bk${info.id}-pay`);
+      const payInfo = document.getElementById(`bk${info.id}-pay-info`);
 
       if (s.start && s.end) {
         const startD = `${s.start.day}/${s.start.month+1}/${s.start.year}`;
@@ -1856,6 +1987,7 @@
         const nights = Math.round((new Date(s.end.year, s.end.month, s.end.day) - new Date(s.start.year, s.start.month, s.start.day)) / 86400000);
         datesSpan.textContent = `من ${startD} إلى ${endD} (${nights} ليلة)`;
         bar.classList.add('show');
+        if (payOptions) payOptions.classList.add('show');
 
         const msg = encodeURIComponent(
           `مرحبا ارغب بالحجز من وحدات ديار ازهار`
@@ -1864,9 +1996,88 @@
       } else if (s.start && !s.end) {
         datesSpan.textContent = `تاريخ البداية: ${s.start.day}/${s.start.month+1}/${s.start.year} — اختر تاريخ النهاية`;
         bar.classList.add('show');
+        if (payOptions) payOptions.classList.remove('show');
+        if (payInfo) { payInfo.classList.remove('show'); payInfo.innerHTML = ''; }
         waLink.href = `https://wa.me/${WA_NUMBER}`;
       } else {
         bar.classList.remove('show');
+        if (payOptions) payOptions.classList.remove('show');
+        if (payInfo) { payInfo.classList.remove('show'); payInfo.innerHTML = ''; }
+      }
+    }
+
+    // ====== PAYMENT SHOW IN BOOKING BAR ======
+    const PAYMENT_DATA = {
+      bank: { name: 'تحويل بنكي', rows: [
+        { label: 'البنك', val: 'الراجحي' },
+        { label: 'المستفيد', val: 'أزهار' },
+        { label: 'الآيبان', val: 'SA0580000495608016006480' }
+      ]},
+      stc: { name: 'STC Pay', rows: [
+        { label: 'رقم STC Pay', val: '0557594116' }
+      ]},
+      barq: { name: 'برق', rows: [
+        { label: 'رقم برق', val: '0557594116' }
+      ]}
+    };
+
+    function showPayment(type, pref) {
+      var info = document.getElementById(pref + '-pay-info');
+      var data = PAYMENT_DATA[type];
+      if (!info || !data) return;
+
+      // Remove active from all buttons in this bar
+      var parent = info.closest('.bk-payment-options');
+      if (parent) {
+        parent.querySelectorAll('.bk-pay-btn').forEach(function(b) { b.classList.remove('active'); });
+      }
+
+      // Toggle if same
+      if (info.classList.contains('show') && info.dataset.type === type) {
+        info.classList.remove('show');
+        info.innerHTML = '';
+        return;
+      }
+
+      // Mark button active
+      var btns = parent ? parent.querySelectorAll('.bk-pay-btn') : [];
+      btns.forEach(function(b) {
+        if (b.textContent.includes(data.name)) b.classList.add('active');
+      });
+
+      var html = '';
+      data.rows.forEach(function(r) {
+        html += '<div class="bk-pi-row"><span class="bk-pi-label">' + r.label + ':</span> <span class="bk-pi-value">' + r.val + '</span> <button class="bk-pi-copy" onclick="bkCopy(\'' + r.val + '\', this)">📋</button></div>';
+      });
+      info.innerHTML = html;
+      info.dataset.type = type;
+      info.classList.add('show');
+    }
+
+    function bkCopy(text, btn) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          btn.textContent = '✅';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.textContent = '📋';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed'; ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = '✅';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = '📋';
+          btn.classList.remove('copied');
+        }, 2000);
       }
     }
 
