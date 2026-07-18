@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ديار أزهار</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8d48b;
+      --dark: #1a1a2e;
+      --dark-card: #222240;
+      --accent: #4ecdc4;
+      --red: #ff6b6b;
+      --green: #51cf66;
+      --gray: #8892b0;
+      --whatsapp: #25d366;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #0f0f1a;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+    /* === HEADER === */
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+      padding: 60px 20px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('site-bg.jpg') center/cover no-repeat;
+      opacity: 0.15;
+      z-index: 0;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(201,168,76,0.08) 0%, transparent 60%);
+      animation: shimmer 8s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-20px, 20px); }
+    }
+    /* Profile Avatar */
+    .profile-avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 20px;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 30px rgba(201,168,76,0.3);
+      position: relative;
+      z-index: 1;
+    }
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(201,168,76,0.3);
+    }
+    .hero h1 .star {
+      color: var(--gold);
+      font-size: 2.2rem;
+      opacity: 0.8;
+      display: inline-block;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+    .hero h1 .star:last-child {
+      animation-delay: 1s;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--gray);
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero .sub {
+      display: inline-block;
+      background: rgba(201,168,76,0.15);
+      color: var(--gold-light);
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      margin-top: 15px;
+      border: 1px solid rgba(201,168,76,0.3);
+    }
+    /* === APARTMENTS === */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 50px 0 30px;
+    }
+    .section-title span { color: var(--gold); }
+
+    .apartments-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    @media (max-width: 768px) { .apartments-grid { grid-template-columns: 1fr; } }
+
+    .apt-card {
+      background: var(--dark-card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .apt-card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .apt-img {
+      height: 220px;
+      background: linear-gradient(135deg, #2d2d5e, #1a1a3e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+    }
+    .apt-img .badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--gold);
+      color: var(--dark);
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    /* === IMAGE GALLERY CAROUSEL === */
+    .apt-carousel {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #2d2d5e, #1a1a3e);
+      width: 100%;
+      cursor: pointer;
+    }
+    .apt-carousel .slide-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .apt-carousel .slide-img.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .apt-carousel .dots {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 5;
+    }
+    .apt-carousel .dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .apt-carousel .dots span.active {
+      background: var(--gold);
+      width: 22px;
+      border-radius: 4px;
+    }
+    .apt-carousel .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .apt-carousel .arrow:hover {
+      background: rgba(0,0,0,0.7);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .apt-carousel .arrow-left { left: 8px; }
+    .apt-carousel .arrow-right { right: 8px; }
+    .apt-img { height: 220px; }
+
+    /* === LIGHTBOX === */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.92);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+      backdrop-filter: blur(8px);
+    }
+    .lightbox.open { display: flex; }
+    .lightbox .lb-close {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox .lb-close:hover { background: rgba(255,255,255,0.2); }
+    .lightbox .lb-close {
+      z-index: 10001;
+    }
+    .lightbox .lb-img-wrap .lb-arrow-onimage {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.2);
+      font-size: 1.6rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .lightbox .lb-img-wrap .lb-arrow-onimage:hover {
+      background: rgba(0,0,0,0.8);
+      border-color: var(--gold);
+      transform: translateY(-50%) scale(1.12);
+    }
+    .lightbox .lb-img-wrap .lb-arrow-onimage.prev { left: 10px; }
+    .lightbox .lb-img-wrap .lb-arrow-onimage.next { right: 10px; }
+    .lightbox .lb-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 900px;
+      max-height: 90vh;
+      width: 100%;
+    }
+    .lightbox .lb-img-wrap {
+      width: 100%;
+      max-height: 55vh;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 2px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .lightbox .lb-img-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 55vh;
+      object-fit: contain;
+      display: block;
+    }
+    .lightbox .lb-counter {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      margin-top: 8px;
+      font-family: 'Cairo', sans-serif;
+    }
+    .lightbox .lb-details {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-top: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-sizing: border-box;
+      max-height: 28vh;
+      overflow-y: auto;
+      direction: rtl;
+    }
+    .lightbox .lb-details::-webkit-scrollbar { width: 4px; }
+    .lightbox .lb-details::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+    .lightbox .lb-details h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+    }
+    .lightbox .lb-details .lb-price {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .lightbox .lb-details .lb-price small {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 400;
+    }
+    .lightbox .lb-details p {
+      color: var(--gray);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .lightbox .lb-details .lb-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+    .lightbox .lb-details .lb-meta span { display: inline-flex; align-items: center; gap: 4px; }
+    @media (max-width: 600px) {
+      .lightbox { padding: 10px; }
+      .lightbox .lb-img-wrap { max-height: 40vh; }
+      .lightbox .lb-img-wrap img { max-height: 40vh; }
+      .lightbox .lb-details { padding: 14px 16px; max-height: 35vh; }
+      .lightbox .lb-arrow { width: 34px; height: 34px; font-size: 1.3rem; }
+      .lightbox .lb-prev { left: 5px; }
+      .lightbox .lb-next { right: 5px; }
+    }
+    .apt-body { padding: 25px; }
+    .apt-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .apt-desc {
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+    .apt-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 10px; margin-bottom: 20px; }
+    .apt-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+    .apt-meta-item .icon { font-size: 0.85rem; }
+    .apt-price {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold);
+    }
+    .apt-price small {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    /* === CALENDAR === */
+    .calendar-section { margin-top: 20px; }
+    .calendar-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--gold-light);
+    }
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .calendar-nav .month-label {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .calendar-nav button {
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: #fff;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .calendar-nav button:hover { background: rgba(255,255,255,0.15); }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+      text-align: center;
+    }
+    .cal-day-header {
+      font-size: 0.75rem;
+      color: var(--gray);
+      padding: 5px 0;
+      font-weight: 600;
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .cal-day.other-month { opacity: 0.2; }
+    .cal-day.available {
+      background: rgba(81, 207, 102, 0.15);
+      color: var(--green);
+    }
+    .cal-day.available:hover { background: rgba(81, 207, 102, 0.3); }
+    .cal-day.booked {
+      background: rgba(255, 107, 107, 0.15);
+      color: var(--red);
+      cursor: not-allowed;
+    }
+    .cal-day.today {
+      box-shadow: 0 0 0 2px var(--gold);
+    }
+    .cal-day.selected {
+      background: var(--gold) !important;
+      color: var(--dark) !important;
+      font-weight: 700;
+    }
+
+    .cal-legend {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    .cal-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--gray);
+    }
+    .cal-legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+    .cal-legend-dot.avail { background: var(--green); }
+    .cal-legend-dot.book { background: var(--red); }
+
+    /* Calendar control buttons */
+    .cal-control {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .cal-control button {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--gray);
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Cairo', sans-serif;
+    }
+    .cal-control button:hover {
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+    }
+    .cal-control button.locked {
+      border-color: var(--red);
+      color: var(--red);
+    }
+    .cal-control button.unlocked {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* === BOOKING INFO === */
+    .booking-bar {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin-top: 15px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .booking-bar.show { display: flex; }
+    .booking-bar .dates { font-size: 0.9rem; font-weight: 600; }
+    .booking-bar .dates span { color: var(--gold); }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--whatsapp);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-whatsapp:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+    }
+    .btn-whatsapp svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* === CONTACT SECTION === */
+    .contact-section {
+      text-align: center;
+      padding: 60px 20px;
+      margin-top: 30px;
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+      border-radius: 20px;
+      margin-bottom: 40px;
+    }
+    .contact-section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .contact-section h2 span { color: var(--gold); }
+    .contact-section p {
+      color: var(--gray);
+      margin-bottom: 25px;
+    }
+    .contact-section .btn-whatsapp {
+      font-size: 1.1rem;
+      padding: 14px 35px;
+    }
+    .contact-section .phone {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-top: 12px;
+    }
+
+    /* === PAYMENT METHODS === */
+    .payment-section {
+      text-align: center;
+      padding: 40px 20px 20px;
+      margin-top: 10px;
+    }
+    .payment-section h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--gold-light);
+    }
+    .payment-section h3 span { color: var(--gold); }
+    .payment-section > p {
+      color: var(--gray);
+      font-size: 0.85rem;
+      margin-bottom: 25px;
+    }
+    .payment-grid {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      gap: 10px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .pm-card {
+      flex: 1 1 0;
+      max-width: 170px;
+      min-width: 0;
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 20px 16px;
+      transition: all 0.3s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .pm-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(201,168,76,0.05), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .pm-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+      border-color: rgba(201,168,76,0.2);
+    }
+    .pm-card:hover::before { opacity: 1; }
+    .pm-card .pm-icon {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 10px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 900;
+      position: relative;
+      z-index: 1;
+    }
+    .pm-card .pm-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .pm-card .pm-name {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+    .pm-card .pm-desc {
+      font-size: 0.75rem;
+      color: var(--gray);
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+    /* Individual brand colors */
+    .pm-apple .pm-icon {
+      background: #1d1d1f;
+      color: #fff;
+      font-size: 1.8rem;
+    }
+    .pm-apple .pm-icon svg { margin-top: 2px; }
+    .pm-apple .pm-name { color: #fff; }
+    .pm-tabby .pm-icon {
+      background: #fff;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .pm-tabby .pm-icon img,
+    .pm-tamara .pm-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2px;
+      box-sizing: border-box;
+    }
+    .pm-tabby .pm-name { color: #22c55e; }
+    .pm-tamara .pm-icon {
+      background: #fff;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .pm-tamara .pm-name { color: #c4b5fd; }
+    .pm-mada .pm-icon {
+      background: #fff url('mada-logo.jpg') no-repeat center / 130% auto;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .pm-mada .pm-icon img {
+      display: none;
+    }
+    .pm-mada .pm-name { color: #4ade80; }
+    .pm-visa .pm-icon {
+      background: linear-gradient(135deg, #1a1f71, #00579f);
+      color: #fff;
+    }
+    .pm-visa .pm-name { color: #60a5fa; }
+    .pm-card .pm-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.15);
+      color: var(--gold-light);
+      font-size: 0.6rem;
+      padding: 2px 10px;
+      border-radius: 50px;
+      margin-top: 8px;
+      border: 1px solid rgba(201,168,76,0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* === FOOTER === */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--gray);
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* === STATUS NOTICE === */
+    .status-notice {
+      display: none;
+      background: rgba(78, 205, 196, 0.1);
+      border: 1px solid rgba(78, 205, 196, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .status-notice.show { display: block; }
+    .status-notice h4 { color: var(--accent); margin-bottom: 8px; }
+    .status-notice p { color: var(--gray); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <!-- HERO -->
+  <section class="hero">
+    <!-- Profile Avatar -->
+    <div class="profile-avatar">
+      <img src="site-profile.jpg" alt="ديار أزهار" id="profileImg" />
+    </div>
+    <h1><span class="star">✦</span> ديار أزهار <span class="star">✦</span></h1>
+    <p>شقق فندقية وشاليهات واكثر</p>
+    <div class="sub">📍 القصيم - بريدة</div>
+  </section>
+
+  <div class="container">
+
+    <!-- STATUS -->
+    <div class="status-notice show" id="statusNotice">
+      <h4>✨ النظام جاهز</h4>
+      <p>اختر شقة أو شاليه، ثم اختر تاريخ البداية والنهاية من التقويم. بعد التحديد، تواصل معنا عبر واتساب للحجز.</p>
+    </div>
+
+    <!-- APARTMENTS -->
+    <h2 class="section-title">شققنا <span>الفاخرة</span></h2>
+
+    <div class="apartments-grid">
+
+      <!-- Apartment 1 -->
+      <div class="apt-card">
+        <div class="apt-carousel" id="car1">
+          <img class="slide-img active" src="img/apt1-f95e26b3-d8de-4b9f-bea4-277345f59d7a.jpg" alt="الشقة 1">
+          <img class="slide-img" src="img/apt1-82335e92-6832-460d-9962-063130e4c7b3.jpg" alt="الشقة 1">
+          <img class="slide-img" src="img/apt1-4c37f827-2e3f-4120-b12b-de3a6f645558.jpg" alt="الشقة 1">
+          <img class="slide-img" src="img/apt1-4b99bd57-a5b9-4fb4-9f89-4f6e8a5a7ca5.jpg" alt="الشقة 1">
+          <img class="slide-img" src="img/apt1-b8b81966-c60b-46db-b224-25f5aa249400.jpg" alt="الشقة 1">
+          <img class="slide-img" src="img/apt1-08771b6e-e304-4fa7-8359-0653b1f61348.jpg" alt="الشقة 1">
+          <img class="slide-img" src="img/apt1-987a8e78-d1f4-4ccc-94af-df35b667e9d9.jpg" alt="الشقة 1">
+          <img class="slide-img" src="img/apt1-c8de0fb0-1224-4f75-b042-78b5bc7b7d76.jpg" alt="الشقة 1">
+          <img class="slide-img" src="img/apt1-1cf4e04a-7ba4-4767-931a-0985b552f2a5.jpg" alt="الشقة 1">
+          <button class="arrow arrow-left">‹</button>
+          <button class="arrow arrow-right">›</button>
+          <div class="dots" id="car1-dots">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span class="badge" style="position:absolute;top:12px;right:12px;z-index:10;background:var(--gold);color:var(--dark);padding:4px 14px;border-radius:50px;font-size:0.8rem;font-weight:700;">غرفة وصالة</span>
+        </div>
+        <div class="apt-body">
+          <div class="apt-name">شقة 1 - كوزي</div>
+          <div class="apt-desc">
+            شقة بتجربة مختلفة - حي قرطبة شمال بريدة
+          </div>
+          <div class="apt-full-desc" style="display:none;">
+            <b>مرحبًا بك في وجهتك المثالية للراحة والاسترخاء!</b><br><br>
+            🏠 <b>مميزات المكان:</b><br>
+            • 🔐 دخول ذكي لراحة وأمان أكثر<br>
+            • 📶 إنترنت سريع ألياف بصرية<br>
+            • 🛋️ صالة مريحة بأجواء دافئة<br>
+            • 📺 شاشة 65 بوصة LG<br>
+            • 🎬 اشتراك Netflix<br>
+            • ☕ ركن قهوة فاخر<br>
+            • 🛏️ غرفة نوم بسرير سوبر كينج (200×200)<br>
+            • سرير إضافي متنقل مع مفرش ومخدة<br>
+            • 🍽️ مطبخ مجهز (فرن، مايكرويف، قلاية هوائية، ثلاجة، غلاية)<br><br>
+            🗺️ <b>موقع مميز:</b><br>
+            • سوبرماركت • مطاعم • مقاهي • مغسلة ملابس<br><br>
+            نحرص على نظافة المكان وتوفير تجربة إقامة مريحة وسلسة 🤍
+          </div>
+          <div class="apt-meta">
+            <div class="apt-meta-item"><span class="icon">🛏️</span> غرفة نوم سرير كبير</div>
+            <div class="apt-meta-item"><span class="icon">🛋️</span> صالة مبهرة</div>
+            <div class="apt-meta-item"><span class="icon">🔐</span> دخول ذكي</div>
+            <div class="apt-meta-item"><span class="icon">🌐</span> ألياف بصرية</div>
+            <div class="apt-meta-item"><span class="icon">📺</span> شاشة 65" LG</div>
+            <div class="apt-meta-item"><span class="icon">🎬</span> اشتراك Netflix</div>
+            <div class="apt-meta-item"><span class="icon">☕</span> ركن قهوة فاخر</div>
+            <div class="apt-meta-item"><span class="icon">👕</span> غسالة ملابس ذكية</div>
+          </div>
+          <div class="apt-price">350 <small>ريال / ليلة</small></div>
+
+          <!-- Calendar -->
+          <div class="calendar-section">
+            <h3>📅 تقويم الحجز — الشقة 1</h3>
+            <div class="calendar-nav">
+              <button onclick="changeMonth('cal1', -1)">‹</button>
+              <span class="month-label" id="cal1-label"></span>
+              <button onclick="changeMonth('cal1', 1)">›</button>
+            </div>
+            <div class="calendar-grid" id="cal1-grid"></div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot avail"></div> متاح</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
+            </div>
+          </div>
+          <div class="cal-control">
+            <button class="unlocked" data-key="cal1" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
+          </div>
+
+          <!-- Booking bar -->
+          <div class="booking-bar" id="booking1">
+            <div class="dates">📅 <span id="bk1-dates">اختر التاريخ</span></div>
+            <a class="btn-whatsapp" id="bk1-wa" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              حجز عبر واتساب
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apartment 2 -->
+      <div class="apt-card">
+        <div class="apt-carousel" id="car2">
+          <img class="slide-img active" src="img/apt2-7.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-room2.jpg" alt="غرفة نوم">
+          <img class="slide-img" src="img/apt2-5.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-6.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-sala2.jpg" alt="صالة">
+          <img class="slide-img" src="img/apt2-10.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-9.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-8.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-sala1.jpg" alt="صالة">
+          <img class="slide-img" src="img/apt2-12.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-room1.jpg" alt="غرفة نوم">
+          <img class="slide-img" src="img/apt2-20.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-21.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-22.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-23.jpg" alt="الشقة 2">
+          <img class="slide-img" src="img/apt2-24.jpg" alt="الشقة 2">
+          <button class="arrow arrow-left">‹</button>
+          <button class="arrow arrow-right">›</button>
+          <div class="dots" id="car2-dots">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span class="badge" style="position:absolute;top:12px;right:12px;z-index:10;background:var(--gold);color:var(--dark);padding:4px 14px;border-radius:50px;font-size:0.8rem;font-weight:700;">شقة فندقية</span>
+        </div>
+        <div class="apt-body">
+          <div class="apt-name">شقة 2 - فندقية</div>
+          <div class="apt-desc">
+            شقة عائلية لاقامة مثالية - حي الريان شمال بريدة
+          </div>
+          <div class="apt-full-desc" style="display:none;">
+            <b>شقة فندقية لإقامة مثالية 😍</b><br><br>
+            🏡 حي الريان شمال بريدة<br>
+            🛁 مناشف استعمال مرة واحدة + شامبو فندقي<br>
+            📶 واي فاي مجاني<br><br>
+            🏠 <b>المحتويات:</b><br>
+            • 🛏️ غرفة نوم بسرير كينج + سرير رضع<br>
+            • 🛏️🛏️ غرفة نوم بسريرين فرديين<br>
+            • 🛋️ صالة أنيقة بكنب رمادي<br>
+            • 🍳 مطبخ متكامل<br>
+            • 🚿 دورة مياه مع غسالة أتوماتيك<br>
+            • 💼 مكتب عمل<br><br>
+            🗺️ <b>الموقع:</b><br>
+            • 🏪 بقالة ومغسلة في نفس العمارة<br>
+            • 1 دقيقة: مطعم سلطان برجر وشاورما<br>
+            • 5 دقائق: شارع البخاري (كوفيات ومطاعم)<br>
+            • 6 دقائق: طريق عثمان بن عفان<br>
+            • 12 دقيقة: مستشفى الملك فهد التخصصي<br>
+            • 10 دقائق: مستشفى الحبيب<br><br>
+            موقع مميز في وسط المدينة 🌃
+          </div>
+          <div class="apt-meta">
+            <div class="apt-meta-item"><span class="icon">🛏️🛏️</span> غرفتين</div>
+            <div class="apt-meta-item"><span class="icon">🛋️</span> صالة أنيقة</div>
+            <div class="apt-meta-item"><span class="icon">🍳</span> مطبخ متكامل</div>
+            <div class="apt-meta-item"><span class="icon">💼</span> مكتب عمل</div>
+            <div class="apt-meta-item"><span class="icon">📶</span> واي فاي</div>
+            <div class="apt-meta-item"><span class="icon">👕</span> غسالة ملابس ذكية</div>
+            <div class="apt-meta-item"><span class="icon">🔐</span> دخول ذاتي</div>
+          </div>
+          <div class="apt-price">550 <small>ريال / ليلة</small></div>
+
+          <!-- Calendar -->
+          <div class="calendar-section">
+            <h3>📅 تقويم الحجز — الشقة 2</h3>
+            <div class="calendar-nav">
+              <button onclick="changeMonth('cal2', -1)">‹</button>
+              <span class="month-label" id="cal2-label"></span>
+              <button onclick="changeMonth('cal2', 1)">›</button>
+            </div>
+            <div class="calendar-grid" id="cal2-grid"></div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot avail"></div> متاح</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
+            </div>
+          </div>
+          <div class="cal-control">
+            <button class="unlocked" data-key="cal2" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
+          </div>
+
+          <!-- Booking bar -->
+          <div class="booking-bar" id="booking2">
+            <div class="dates">📅 <span id="bk2-dates">اختر التاريخ</span></div>
+            <a class="btn-whatsapp" id="bk2-wa" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              حجز عبر واتساب
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apartment 3 -->
+      <div class="apt-card">
+        <div class="apt-carousel" id="car3">
+          <img class="slide-img active" src="img/apt3-2.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-1.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-3.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-4.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-5.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-6.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-7.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-8.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-9.jpg" alt="الشقة 3">
+          <button class="arrow arrow-left">‹</button>
+          <button class="arrow arrow-right">›</button>
+          <div class="dots" id="car3-dots">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          
+        </div>
+        <div class="apt-body">
+          <div class="apt-name">شقة 3 - اتساع وراحة</div>
+          <div class="apt-desc">
+            شقة مريحة وواسعة - حي قرطبة شمال بريدة
+          </div>
+          <div class="apt-full-desc" style="display:none;">
+            <b>🏠 مميزات المكان:</b><br>
+            • 🛏️ غرفة نوم بسرير كبير<br>
+            • 🛋️ صالة مريحة<br>
+            • 🍳 مطبخ مجهز<br>
+            • 📺 شاشة تلفاز<br>
+            • 🎬 اشتراك Netflix<br>
+            • ☕ ركن قهوة<br>
+            • 🔐 دخول ذاتي<br>
+            • 👕 غسالة ملابس ذكية<br><br>
+            🗺️ <b>موقع مميز:</b><br>
+            • قريب من جميع الاحتياجات اليومية مثل:<br>
+            • سوبرماركت • مطاعم • مقاهي • مغسلة ملابس
+          </div>
+          <div class="apt-meta">
+            <div class="apt-meta-item"><span class="icon">🛏️</span> غرفة نوم بسرير كبير</div>
+            <div class="apt-meta-item"><span class="icon">🛋️</span> صالة مريحة</div>
+            <div class="apt-meta-item"><span class="icon">🔐</span> دخول ذاتي</div>
+            <div class="apt-meta-item"><span class="icon">📶</span> انترنت سريع الياف بصرية</div>
+            <div class="apt-meta-item"><span class="icon">🍳</span> مطبخ مجهز</div>
+            <div class="apt-meta-item"><span class="icon">📺</span> شاشة تلفاز</div>
+            <div class="apt-meta-item"><span class="icon">🎬</span> اشتراك Netflix</div>
+            <div class="apt-meta-item"><span class="icon">☕</span> ركن قهوة</div>
+            <div class="apt-meta-item"><span class="icon">👕</span> غسالة ملابس ذكية</div>
+          </div>
+          <div class="apt-price">450 <small>ريال / ليلة</small></div>
+
+          <div class="calendar-section">
+            <h3>📅 تقويم الحجز — الشقة 3</h3>
+            <div class="calendar-nav">
+              <button onclick="changeMonth('cal5', -1)">‹</button>
+              <span class="month-label" id="cal5-label"></span>
+              <button onclick="changeMonth('cal5', 1)">›</button>
+            </div>
+            <div class="calendar-grid" id="cal5-grid"></div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot avail"></div> متاح</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
+            </div>
+          </div>
+          <div class="cal-control">
+            <button class="unlocked" data-key="cal5" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
+          </div>
+
+          <div class="booking-bar" id="booking5">
+            <div class="dates">📅 <span id="bk5-dates">اختر التاريخ</span></div>
+            <a class="btn-whatsapp" id="bk5-wa" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              حجز عبر واتساب
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apartment 4 -->
+      <div class="apt-card">
+        <div class="apt-carousel" id="car4">
+          <img class="slide-img active" src="img/apt4-1.jpg" alt="الشقة 4">
+          <img class="slide-img" src="img/apt4-2.jpg" alt="الشقة 4">
+          <img class="slide-img" src="img/apt4-3.jpg" alt="الشقة 4">
+          <img class="slide-img" src="img/apt4-4.jpg" alt="الشقة 4">
+          <img class="slide-img" src="img/apt4-5.jpg" alt="الشقة 4">
+          <img class="slide-img" src="img/apt4-6.jpg" alt="الشقة 4">
+          <img class="slide-img" src="img/apt4-7.jpg" alt="الشقة 4">
+          <img class="slide-img" src="img/apt4-8.jpg" alt="الشقة 4">
+          <img class="slide-img" src="img/apt4-9.jpg" alt="الشقة 4">
+          <img class="slide-img" src="img/apt4-10.jpg" alt="الشقة 4">
+          <button class="arrow arrow-left">‹</button>
+          <button class="arrow arrow-right">›</button>
+          <div class="dots" id="car4-dots">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div class="apt-body">
+          <div class="apt-name">شقة 4 - موقع مركزي</div>
+          <div class="apt-desc">
+            شقة عائلية بجوار شارع البخاري - حي النهضة شمال بريدة
+          </div>
+          <div class="apt-full-desc" style="display:none;">
+            <b>🏠 مميزات المكان:</b><br>
+            • 🛏️🛏️ غرفتين نوم واسعتين<br>
+            • 🛋️ صالة أنيقة<br>
+            • 🍳 مطبخ متكامل<br>
+            • 💼 مكتب عمل<br>
+            • 👕 غسالة ملابس ذكية<br>
+            • 🔐 دخول ذاتي<br><br>
+            🗺️ <b>الموقع:</b><br>
+            • بجوار شارع البخاري - حي النهضة شمال بريدة
+          </div>
+          <div class="apt-meta">
+            <div class="apt-meta-item"><span class="icon">🛏️🛏️</span> غرفتين</div>
+            <div class="apt-meta-item"><span class="icon">🛋️</span> صالة أنيقة</div>
+            <div class="apt-meta-item"><span class="icon">🍳</span> مطبخ متكامل</div>
+            <div class="apt-meta-item"><span class="icon">👕</span> غسالة ملابس ذكية</div>
+            <div class="apt-meta-item"><span class="icon">🔐</span> دخول ذاتي</div>
+            <div class="apt-meta-item"><span class="icon">📶</span> انترنت سريع الياف بصرية</div>
+            <div class="apt-meta-item"><span class="icon">📺</span> تلفاز ذكي</div>
+          </div>
+          <div class="apt-price">650 <small>ريال / ليلة</small></div>
+
+          <div class="calendar-section">
+            <h3>📅 تقويم الحجز — الشقة 4</h3>
+            <div class="calendar-nav">
+              <button onclick="changeMonth('cal6', -1)">‹</button>
+              <span class="month-label" id="cal6-label"></span>
+              <button onclick="changeMonth('cal6', 1)">›</button>
+            </div>
+            <div class="calendar-grid" id="cal6-grid"></div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot avail"></div> متاح</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
+            </div>
+          </div>
+          <div class="cal-control">
+            <button class="unlocked" data-key="cal6" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
+          </div>
+
+          <div class="booking-bar" id="booking6">
+            <div class="dates">📅 <span id="bk6-dates">اختر التاريخ</span></div>
+            <a class="btn-whatsapp" id="bk6-wa" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              حجز عبر واتساب
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CHALETS -->
+    <h2 class="section-title">شاليهاتنا <span>الفاخرة</span></h2>
+
+    <div class="apartments-grid">
+
+      <!-- Chalet 1 -->
+      <div class="apt-card">
+        <div class="apt-carousel" id="carch1">
+          <img class="slide-img active" src="img/ch1-2.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-12.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-1.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-3.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-4.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-5.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-6.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-7.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-8.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-9.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-10.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-11.jpg" alt="الشاليه 1">
+          <img class="slide-img" src="img/ch1-13.jpg" alt="الشاليه 1">
+          <button class="arrow arrow-left">‹</button>
+          <button class="arrow arrow-right">›</button>
+          <div class="dots" id="carch1-dots">
+            <span class="active"></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <span class="badge" style="position:absolute;top:12px;right:12px;z-index:10;background:var(--gold);color:var(--dark);padding:4px 14px;border-radius:50px;font-size:0.8rem;font-weight:700;">شاليه فاخر</span>
+        </div>
+        <div class="apt-body">
+          <div class="apt-name">شاليه 1 : شاليه ونيس</div>
+          <div class="apt-desc">
+            شاليه لقضاء وقت عائلي ممتع - حي ضراس غرب بريدة
+          </div>
+          <div class="apt-full-desc" style="display:none;">
+            🛜 يتوفر انترنت وايفاي<br><br>
+            <b>🏠 المحتويات:</b><br>
+            • 🛋️ صالة أنيقة بتلفاز ذكي<br>
+            • 🛌 غرفة نوم ماستر<br>
+            • 🛌 غرفة نوم بسريرين منفصلين<br>
+            • 🧑🏻‍🍳 مطبخ مجهز بالكامل<br>
+            • 🪑 طاولة طعام بثلاث كراسي<br>
+            • 🛁 2 دورات مياه / كرسي أرضي + فرنجي 🚽<br><br>
+            <b>🌴 المساحة الخارجية:</b><br>
+            • 🌊 مسبح خارجي مفلتر صغير + كبير<br>
+            • 🪑 جلسة خارجية أرضية<br>
+            • 🌿 مسطح أخضر<br>
+            • 🚗 مدخل سيارة<br><br>
+            🗺️ <b>قريب من الخدمات:</b><br>
+            • سوبرماركت • مغسلة ملابس • صيدلية • مطاعم
+          </div>
+          <div class="apt-meta">
+            <div class="apt-meta-item"><span class="icon">🛋️</span> صالة أنيقة</div>
+            <div class="apt-meta-item"><span class="icon">🛌</span> غرفتين منفصلتين</div>
+            <div class="apt-meta-item"><span class="icon">🛁</span> دورتين مياه</div>
+            <div class="apt-meta-item"><span class="icon">🧑🏻‍🍳</span> مطبخ مجهز</div>
+            <div class="apt-meta-item"><span class="icon">🏊</span> مسبح خارجي</div>
+            <div class="apt-meta-item"><span class="icon">🌿</span> مسطح أخضر</div>
+            <div class="apt-meta-item"><span class="icon">🚗</span> مدخل سيارة</div>
+            <div class="apt-meta-item"><span class="icon">📶</span> واي فاي</div>
+            <div class="apt-meta-item"><span class="icon">🔐</span> دخول ذاتي</div>
+          </div>
+          <div class="apt-price">800 <small>ريال / ليلة</small></div>
+
+          <!-- Calendar -->
+          <div class="calendar-section">
+            <h3>📅 تقويم الحجز — الشاليه 1</h3>
+            <div class="calendar-nav">
+              <button onclick="changeMonth('cal3', -1)">‹</button>
+              <span class="month-label" id="cal3-label"></span>
+              <button onclick="changeMonth('cal3', 1)">›</button>
+            </div>
+            <div class="calendar-grid" id="cal3-grid"></div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot avail"></div> متاح</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
+            </div>
+          </div>
+          <div class="cal-control">
+            <button class="unlocked" data-key="cal3" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
+          </div>
+
+          <!-- Booking bar -->
+          <div class="booking-bar" id="booking3">
+            <div class="dates">📅 <span id="bk3-dates">اختر التاريخ</span></div>
+            <a class="btn-whatsapp" id="bk3-wa" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              حجز عبر واتساب
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chalet 2 -->
+      <div class="apt-card">
+        <div class="apt-img">
+          🌴
+          <span class="badge">VIP</span>
+        </div>
+        <div class="apt-body">
+          <div class="apt-name">الشاليه 2</div>
+          <div class="apt-desc">
+            شاليه VIP فاخر، ٣ غرف نوم، مسبح داخلي، جاكوزي، حديقة خاصة، ملعب أطفال، ومطبخ كامل.
+          </div>
+          <div class="apt-meta">
+            <div class="apt-meta-item"><span class="icon">🛏️🛏️🛏️</span> 3 غرف</div>
+            <div class="apt-meta-item"><span class="icon">🏊</span> مسبح داخلي</div>
+            <div class="apt-meta-item"><span class="icon">🛁</span> جاكوزي</div>
+            <div class="apt-meta-item"><span class="icon">🌳</span> حديقة خاصة</div>
+            <div class="apt-meta-item"><span class="icon">🧸</span> ملعب أطفال</div>
+          </div>
+          <div class="apt-price">1,200 <small>ريال / ليلة</small></div>
+
+          <!-- Calendar -->
+          <div class="calendar-section">
+            <h3>📅 تقويم الحجز — الشاليه 2</h3>
+            <div class="calendar-nav">
+              <button onclick="changeMonth('cal4', -1)">‹</button>
+              <span class="month-label" id="cal4-label"></span>
+              <button onclick="changeMonth('cal4', 1)">›</button>
+            </div>
+            <div class="calendar-grid" id="cal4-grid"></div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot avail"></div> متاح</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
+            </div>
+          </div>
+          <div class="cal-control">
+            <button class="unlocked" data-key="cal4" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
+          </div>
+
+          <!-- Booking bar -->
+          <div class="booking-bar" id="booking4">
+            <div class="dates">📅 <span id="bk4-dates">اختر التاريخ</span></div>
+            <a class="btn-whatsapp" id="bk4-wa" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              حجز عبر واتساب
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chalet 3 -->
+      <div class="apt-card">
+        <div class="apt-img">
+          🌊
+          <span class="badge">على المسبح</span>
+        </div>
+        <div class="apt-body">
+          <div class="apt-name">الشاليه 3</div>
+          <div class="apt-desc">
+            شاليه بإطلالة على المسبح، غرفتي نوم، حمام سباحة مشترك، حديقة، شواية، وكراج خاص.
+          </div>
+          <div class="apt-meta">
+            <div class="apt-meta-item"><span class="icon">🛏️🛏️</span> غرفتين</div>
+            <div class="apt-meta-item"><span class="icon">🏊</span> مسبح مشترك</div>
+            <div class="apt-meta-item"><span class="icon">🌳</span> حديقة</div>
+            <div class="apt-meta-item"><span class="icon">🔥</span> شواية</div>
+            <div class="apt-meta-item"><span class="icon">🚗</span> كراج</div>
+          </div>
+          <div class="apt-price">700 <small>ريال / ليلة</small></div>
+
+          <div class="calendar-section">
+            <h3>📅 تقويم الحجز — الشاليه 3</h3>
+            <div class="calendar-nav">
+              <button onclick="changeMonth('cal7', -1)">‹</button>
+              <span class="month-label" id="cal7-label"></span>
+              <button onclick="changeMonth('cal7', 1)">›</button>
+            </div>
+            <div class="calendar-grid" id="cal7-grid"></div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot avail"></div> متاح</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
+            </div>
+          </div>
+          <div class="cal-control">
+            <button class="unlocked" data-key="cal7" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
+          </div>
+
+          <div class="booking-bar" id="booking7">
+            <div class="dates">📅 <span id="bk7-dates">اختر التاريخ</span></div>
+            <a class="btn-whatsapp" id="bk7-wa" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              حجز عبر واتساب
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chalet 4 -->
+      <div class="apt-card">
+        <div class="apt-img">
+          🌟
+          <span class="badge">الخيمة</span>
+        </div>
+        <div class="apt-body">
+          <div class="apt-name">الشاليه 4</div>
+          <div class="apt-desc">
+            شاليه عربي فاخر بخيمة ريفية، مجلس عربي كبير، غرفتي نوم، مسبح، حديقة، وجلسة شعبية.
+          </div>
+          <div class="apt-meta">
+            <div class="apt-meta-item"><span class="icon">🛏️🛏️</span> غرفتين</div>
+            <div class="apt-meta-item"><span class="icon">🏕️</span> خيمة ريفية</div>
+            <div class="apt-meta-item"><span class="icon">🛋️</span> مجلس عربي</div>
+            <div class="apt-meta-item"><span class="icon">🏊</span> مسبح</div>
+            <div class="apt-meta-item"><span class="icon">🔥</span> جلسة شعبية</div>
+          </div>
+          <div class="apt-price">950 <small>ريال / ليلة</small></div>
+
+          <div class="calendar-section">
+            <h3>📅 تقويم الحجز — الشاليه 4</h3>
+            <div class="calendar-nav">
+              <button onclick="changeMonth('cal8', -1)">‹</button>
+              <span class="month-label" id="cal8-label"></span>
+              <button onclick="changeMonth('cal8', 1)">›</button>
+            </div>
+            <div class="calendar-grid" id="cal8-grid"></div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot avail"></div> متاح</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
+            </div>
+          </div>
+          <div class="cal-control">
+            <button class="unlocked" data-key="cal8" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
+          </div>
+
+          <div class="booking-bar" id="booking8">
+            <div class="dates">📅 <span id="bk8-dates">اختر التاريخ</span></div>
+            <a class="btn-whatsapp" id="bk8-wa" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              حجز عبر واتساب
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PAYMENT METHODS -->
+    <section class="payment-section">
+      <h3>وسائل <span>الدفع</span></h3>
+      <p>ادفع بأريحية — اختر ما يناسبك</p>
+      <div class="payment-grid">
+        <!-- Apple Pay -->
+        <div class="pm-card pm-apple">
+          <div class="pm-icon">
+            <svg viewBox="0 0 27 36" width="24" height="32" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.4 17.4c0-4.8 2.7-7.1 2.8-7.2-1.6-2.3-4-2.7-4.9-2.7-2-.2-4 1.2-5 1.2-1.1 0-2.7-1.2-4.5-1.1-2.3 0-4.5 1.4-5.8 3.5-2.5 4.3-.7 10.8 1.8 14.3 1.2 1.8 2.6 3.7 4.5 3.6 1.8-.1 2.4-1.2 4.6-1.2 2.1 0 2.7 1.2 4.6 1.2 1.9 0 3.2-1.8 4.3-3.6 1.4-2 2-3.9 2-4s-3.4-1.5-3.4-5.4zM16.5 5.7c.9-1.2 1.5-2.8 1.3-4.5-1.2.1-2.7.9-3.7 2.1-.9 1-1.6 2.6-1.4 4.1 1.4.1 2.8-.7 3.8-1.7z"/>
+            </svg>
+          </div>
+          <div class="pm-name">Apple Pay</div>
+          <div class="pm-desc">الدفع بلمسة<br>بأجهزة أبل</div>
+          <div class="pm-badge">قريباً</div>
+        </div>
+        <!-- Tabby -->
+        <div class="pm-card pm-tabby">
+          <div class="pm-icon">
+            <img src="tabby-logo.jpg" alt="Tabby" />
+          </div>
+          <div class="pm-name">Tabby</div>
+          <div class="pm-desc">قسّط مشترياتك<br>على 4 دفعات</div>
+          <div class="pm-badge">بدون فوائد</div>
+        </div>
+        <!-- Tamara -->
+        <div class="pm-card pm-tamara">
+          <div class="pm-icon">
+            <img src="tamara-logo.jpg" alt="تمارا" />
+          </div>
+          <div class="pm-name">تمارا</div>
+          <div class="pm-desc">ادفع لاحقاً<br>على 3 دفعات</div>
+          <div class="pm-badge">مرن وسريع</div>
+        </div>
+        <!-- Mada -->
+        <div class="pm-card pm-mada">
+          <div class="pm-icon">
+            <img src="mada-logo.jpg" alt="مدى" />
+          </div>
+          <div class="pm-name">مدى</div>
+          <div class="pm-desc">بطاقة الصراف<br>المباشرة</div>
+          <div class="pm-badge">السعودية</div>
+        </div>
+        <!-- Visa/MC -->
+        <div class="pm-card pm-visa">
+          <div class="pm-icon">
+            <svg viewBox="0 0 40 28" width="34" height="24" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" width="40" height="28" rx="4" fill="white"/>
+              <text x="20" y="20" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-size="16" fill="#1a1f71" text-anchor="middle">VISA</text>
+            </svg>
+          </div>
+          <div class="pm-name">Visa / MC</div>
+          <div class="pm-desc">بطاقات الائتمان<br>والخصم المباشر</div>
+          <div class="pm-badge">عالمي</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+    <!-- CONTACT -->
+    <section class="contact-section">
+      <h2>تواصل <span>مباشر</span></h2>
+      
+      <p style="margin-bottom:18px;font-size:0.95rem;color:var(--gray);">للحجز والاستفسار تواصل معنا</p>
+      <a class="btn-whatsapp" href="https://wa.me/966557594116?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%A7%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AD%D8%AC%D8%B2%20%D9%85%D9%86%20%D9%88%D8%AD%D8%AF%D8%A7%D8%AA%20%D8%AF%D9%8A%D8%A7%D8%B1%20%D8%A7%D8%B2%D9%87%D8%A7%D8%B1
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        واتساب: 0557594116
+      </a>
+
+    </section>
+
+  <footer>
+    © 2026 ديار أزهار — جميع الحقوق محفوظة
+  </footer>
+
+  <script>
+    // ====== IMAGE GALLERY ======
+    (function initGallery() {
+      document.querySelectorAll('.apt-carousel').forEach(function(car) {
+        var imgs = car.querySelectorAll('.slide-img');
+        var dots = document.getElementById(car.id + '-dots');
+        if (!dots) return;
+        dots = dots.querySelectorAll('span');
+        var cur = 0;
+        function show(n) {
+          imgs[cur].classList.remove('active');
+          dots[cur].classList.remove('active');
+          cur = (n + imgs.length) % imgs.length;
+          imgs[cur].classList.add('active');
+          if (dots[cur]) dots[cur].classList.add('active');
+        }
+        var left = car.querySelector('.arrow-left');
+        var right = car.querySelector('.arrow-right');
+        imgs.forEach(function(img, i){ img.addEventListener('click', function(){ openLightbox(car.id, i); }); });
+        if (left) left.addEventListener('click', function(){ show(cur - 1); });
+        if (right) right.addEventListener('click', function(){ show(cur + 1); });
+        dots.forEach(function(d,i){ d.addEventListener('click', function(){ show(i); }); });
+      });
+    })();
+
+    // ====== DATA ======
+    // Format: "YYYY-MM-DD"
+    const booked1 = new Set([
+      '2026-06-15', '2026-06-16', '2026-06-17',
+      '2026-06-22', '2026-06-23', '2026-06-24',
+      '2026-06-30', '2026-07-01', '2026-07-02', '2026-07-03',
+    ]);
+    const booked2 = new Set([
+      '2026-06-10', '2026-06-11', '2026-06-12', '2026-06-13',
+      '2026-06-20', '2026-06-21',
+      '2026-07-05', '2026-07-06', '2026-07-07',
+    ]);
+    const booked3 = new Set([
+      '2026-06-18', '2026-06-19', '2026-06-20',
+      '2026-07-10', '2026-07-11', '2026-07-12',
+    ]);
+    const booked4 = new Set([
+      '2026-06-25', '2026-06-26', '2026-06-27',
+      '2026-07-15', '2026-07-16',
+    ]);
+    const booked5 = new Set([
+      '2026-06-14', '2026-06-15',
+      '2026-07-08', '2026-07-09', '2026-07-10',
+    ]);
+    const booked6 = new Set([
+      '2026-07-14',
+      '2026-07-15',
+      '2026-07-16',
+      '2026-07-17',
+      '2026-07-18',
+      '2026-07-19',
+      '2026-07-20',
+      '2026-07-21',
+      '2026-07-22',
+      '2026-07-23',
+      '2026-07-24',
+      '2026-07-25',
+      '2026-07-26',
+      '2026-07-27',
+      '2026-07-28',
+      '2026-07-29',
+      '2026-07-30',
+      '2026-07-31',
+      '2026-08-01',
+      '2026-08-02',
+      '2026-08-03',
+      '2026-08-04',
+      '2026-08-05',
+      '2026-08-06',
+      '2026-08-07',
+      '2026-08-08',
+      '2026-08-09',
+      '2026-08-10',
+      '2026-08-11',
+      '2026-08-12',
+      '2026-08-13',
+      '2026-08-14',
+      '2026-08-15',
+      '2026-08-16',
+      '2026-08-17',
+      '2026-08-18',
+      '2026-08-19',
+      '2026-08-20',
+      '2026-08-21',
+      '2026-08-22',
+      '2026-08-23',
+      '2026-08-24',
+      '2026-08-25',
+      '2026-08-26',
+      '2026-08-27',
+      '2026-08-28',
+      '2026-08-29',
+      '2026-08-30',
+      '2026-08-31',
+      '2026-09-01',
+      '2026-09-02',
+      '2026-09-03',
+      '2026-09-04',
+      '2026-09-05',
+      '2026-09-06',
+      '2026-09-07',
+      '2026-09-08',
+      '2026-09-09',
+      '2026-09-10',
+      '2026-09-11',
+      '2026-09-12',
+      '2026-09-13',
+      '2026-09-14',
+      '2026-09-15',
+      '2026-09-16',
+      '2026-09-17',
+      '2026-09-18',
+      '2026-09-19',
+      '2026-09-20',
+      '2026-09-21',
+      '2026-09-22',
+      '2026-09-23',
+      '2026-09-24',
+      '2026-09-25',
+      '2026-09-26',
+      '2026-09-27',
+      '2026-09-28',
+      '2026-09-29',
+      '2026-09-30',
+      '2026-10-01',
+      '2026-10-02',
+      '2026-10-03',
+      '2026-10-04',
+      '2026-10-05',
+      '2026-10-06',
+      '2026-10-07',
+      '2026-10-08',
+      '2026-10-09',
+      '2026-10-10',
+      '2026-10-11',
+      '2026-10-12',
+      '2026-10-13',
+      '2026-10-14',
+    ]);
+    const booked7 = new Set([
+      '2026-06-05', '2026-06-06', '2026-06-07',
+      '2026-07-01', '2026-07-02',
+    ]);
+    const booked8 = new Set([
+      '2026-06-12', '2026-06-13', '2026-06-14',
+      '2026-07-22', '2026-07-23', '2026-07-24',
+    ]);
+
+    const WA_NUMBER = '966557594116'; // ← غيّر هذا لرقمك
+
+    // State per calendar
+    const state = {
+      cal1: { year: 2026, month: 5, start: null, end: null }, // month 5 = June (0-indexed)
+      cal2: { year: 2026, month: 5, start: null, end: null },
+      cal3: { year: 2026, month: 5, start: null, end: null },
+      cal4: { year: 2026, month: 5, start: null, end: null },
+      cal5: { year: 2026, month: 5, start: null, end: null },
+      cal6: { year: 2026, month: 5, start: null, end: null },
+      cal7: { year: 2026, month: 5, start: null, end: null },
+      cal8: { year: 2026, month: 5, start: null, end: null },
+    };
+
+    function fmtDate(y, m, d) {
+      return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    }
+
+    function isSameOrAfter(d1, d2) { return d1 >= d2; }
+
+    function renderCalendar(key, bookedSet) {
+      const s = state[key];
+      const grid = document.getElementById(`${key}-grid`);
+      const label = document.getElementById(`${key}-label`);
+
+      const monthNames = [
+        'يناير','فبراير','مارس','إبريل','مايو','يونيو',
+        'يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'
+      ];
+      label.textContent = `${monthNames[s.month]} ${s.year}`;
+
+      const firstDay = new Date(s.year, s.month, 1).getDay(); // 0=Sun
+      const daysInMonth = new Date(s.year, s.month + 1, 0).getDate();
+      const daysInPrev = new Date(s.year, s.month, 0).getDate();
+
+      const today = new Date();
+      const todayStr = fmtDate(today.getFullYear(), today.getMonth(), today.getDate());
+
+      let html = '';
+      const dayHeaders = ['أحد','إثن','ثلاث','أربع','خميس','جمعة','سبت'];
+      dayHeaders.forEach(h => { html += `<div class="cal-day-header">${h}</div>`; });
+
+      let dayCount = 1;
+      let nextMonthDay = 1;
+      for (let row = 0; row < 6; row++) {
+        for (let col = 0; col < 7; col++) {
+          const cellIdx = row * 7 + col;
+          if (cellIdx < firstDay) {
+            // previous month
+            const prevDate = daysInPrev - firstDay + cellIdx + 1;
+            html += `<div class="cal-day other-month">${prevDate}</div>`;
+          } else if (dayCount <= daysInMonth) {
+            const dateStr = fmtDate(s.year, s.month, dayCount);
+            let cls = 'cal-day';
+            if (dateStr === todayStr) cls += ' today';
+            const isLocked = localStorage.getItem('lock_' + key) === 'true';
+            if (bookedSet.has(dateStr) || (isLocked && dateStr >= todayStr)) cls += ' booked';
+            else cls += ' available';
+
+            // Selected range highlight
+            if (s.start && s.end) {
+              const d = new Date(s.year, s.month, dayCount);
+              const st = new Date(s.start.year, s.start.month, s.start.day);
+              const en = new Date(s.end.year, s.end.month, s.end.day);
+              if (d >= st && d <= en && !bookedSet.has(dateStr)) cls += ' selected';
+            } else if (s.start && !s.end) {
+              if (s.start.day === dayCount && s.start.month === s.month && s.start.year === s.year) cls += ' selected';
+            }
+
+            html += `<div class="${cls}" data-date="${dateStr}" data-key="${key}" data-day="${dayCount}">${dayCount}</div>`;
+            dayCount++;
+          } else {
+            // next month
+            html += `<div class="cal-day other-month">${nextMonthDay}</div>`;
+            nextMonthDay++;
+          }
+        }
+      }
+      grid.innerHTML = html;
+
+      // Attach click events
+      grid.querySelectorAll('.cal-day.available, .cal-day.selected').forEach(el => {
+        el.addEventListener('click', () => handleDayClick(key, el.dataset.date));
+      });
+    }
+
+    function handleDayClick(key, dateStr) {
+      const s = state[key];
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const clicked = { year: y, month: m - 1, day: d };
+
+      // If no start, set start
+      if (!s.start) {
+        s.start = clicked;
+        s.end = null;
+      } else if (!s.end) {
+        // If clicking same day, reset
+        if (s.start.day === clicked.day && s.start.month === clicked.month && s.start.year === clicked.year) {
+          s.start = null;
+        } else if (new Date(clicked.year, clicked.month, clicked.day) >= new Date(s.start.year, s.start.month, s.start.day)) {
+          s.end = clicked;
+        } else {
+          // clicked before start, swap
+          s.end = s.start;
+          s.start = clicked;
+        }
+      } else {
+        // reset and start new
+        s.start = clicked;
+        s.end = null;
+      }
+
+      renderCalendar(key, bookedMap[key]);
+      updateBookingBar(key);
+    }
+
+    const bookedMap = {
+      cal1: booked1, cal2: booked2, cal3: booked3, cal4: booked4,
+      cal5: booked5, cal6: booked6, cal7: booked7, cal8: booked8,
+    };
+
+    const nameMap = {
+      cal1: { id: '1', name: 'الشقة 1' },
+      cal2: { id: '2', name: 'الشقة 2' },
+      cal3: { id: '3', name: 'الشاليه 1' },
+      cal4: { id: '4', name: 'الشاليه 2' },
+      cal5: { id: '5', name: 'الشقة 3' },
+      cal6: { id: '6', name: 'الشقة 4' },
+      cal7: { id: '7', name: 'الشاليه 3' },
+      cal8: { id: '8', name: 'الشاليه 4' },
+    };
+
+    function updateBookingBar(key) {
+      const s = state[key];
+      const info = nameMap[key];
+      const bar = document.getElementById(`booking${info.id}`);
+      const datesSpan = document.getElementById(`bk${info.id}-dates`);
+      const waLink = document.getElementById(`bk${info.id}-wa`);
+
+      if (s.start && s.end) {
+        const startD = `${s.start.day}/${s.start.month+1}/${s.start.year}`;
+        const endD = `${s.end.day}/${s.end.month+1}/${s.end.year}`;
+        const nights = Math.round((new Date(s.end.year, s.end.month, s.end.day) - new Date(s.start.year, s.start.month, s.start.day)) / 86400000);
+        datesSpan.textContent = `من ${startD} إلى ${endD} (${nights} ليلة)`;
+        bar.classList.add('show');
+
+        const msg = encodeURIComponent(
+          `مرحبا ارغب بالحجز من وحدات ديار ازهار`
+        );
+        waLink.href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+      } else if (s.start && !s.end) {
+        datesSpan.textContent = `تاريخ البداية: ${s.start.day}/${s.start.month+1}/${s.start.year} — اختر تاريخ النهاية`;
+        bar.classList.add('show');
+        waLink.href = `https://wa.me/${WA_NUMBER}`;
+      } else {
+        bar.classList.remove('show');
+      }
+    }
+
+    function changeMonth(key, dir) {
+      const s = state[key];
+      s.month += dir;
+      if (s.month < 0) { s.month = 11; s.year--; }
+      if (s.month > 11) { s.month = 0; s.year++; }
+      renderCalendar(key, bookedMap[key]);
+    }
+
+    // Init
+    renderCalendar('cal1', booked1);
+    renderCalendar('cal2', booked2);
+    renderCalendar('cal3', booked3);
+    renderCalendar('cal4', booked4);
+    renderCalendar('cal5', booked5);
+    renderCalendar('cal6', booked6);
+    renderCalendar('cal7', booked7);
+    renderCalendar('cal8', booked8);
+
+    // ====== CALENDAR LOCK CONTROLS ======
+    function toggleLock(key, btn) {
+      const locked = localStorage.getItem('lock_' + key) === 'true';
+      if (locked) {
+        localStorage.removeItem('lock_' + key);
+        btn.textContent = '🔒 قفل';
+        btn.classList.remove('locked');
+        btn.classList.add('unlocked');
+      } else {
+        localStorage.setItem('lock_' + key, 'true');
+        btn.textContent = '🔓 مفتوح';
+        btn.classList.remove('unlocked');
+        btn.classList.add('locked');
+      }
+      // Re-render
+      const calMap = {cal1:booked1,cal2:booked2,cal3:booked3,cal4:booked4,cal5:booked5,cal6:booked6,cal7:booked7,cal8:booked8};
+      renderCalendar(key, calMap[key]);
+    }
+    // Attach lock buttons
+    document.querySelectorAll('.cal-control button').forEach(function(btn) {
+      const key = btn.dataset.key;
+      if (localStorage.getItem('lock_' + key) === 'true') {
+        btn.textContent = '🔓 مفتوح';
+        btn.classList.add('locked');
+      }
+    });
+  </script>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <div class="lb-content">
+      <div class="lb-img-wrap">
+        <img id="lb-img" src="" alt="" />
+        <button class="lb-arrow-onimage prev" id="lb-prev">‹</button>
+        <button class="lb-arrow-onimage next" id="lb-next">›</button>
+      </div>
+      <div class="lb-counter" id="lb-counter"></div>
+      <div class="lb-details" id="lb-details">
+        <h3 id="lb-title"></h3>
+        <div class="lb-price" id="lb-price"></div>
+        <p id="lb-desc"></p>
+        <div class="lb-meta" id="lb-meta"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== LIGHTBOX ======
+    var lbState = { carId: '', idx: 0 };
+    function openLightbox(carId, imgIdx) {
+      var car = document.getElementById(carId);
+      if (!car) return;
+      var imgs = car.querySelectorAll('.slide-img');
+      var img = imgs[imgIdx];
+      if (!img) return;
+      lbState.carId = carId;
+      lbState.idx = imgIdx;
+      document.getElementById('lb-img').src = img.src;
+      document.getElementById('lb-counter').textContent = (imgIdx + 1) + ' / ' + imgs.length;
+      // Get details from the card body
+      var card = car.closest('.apt-card');
+      if (card) {
+        var body = card.querySelector('.apt-body');
+        if (body) {
+          var nameEl = body.querySelector('.apt-name');
+          var priceEl = body.querySelector('.apt-price');
+          var descEl = body.querySelector('.apt-desc');
+          var metaEl = body.querySelector('.apt-meta');
+          if (nameEl) document.getElementById('lb-title').textContent = nameEl.textContent;
+          if (priceEl) document.getElementById('lb-price').innerHTML = priceEl.innerHTML;
+          var fullDescEl = body.querySelector('.apt-full-desc');
+          if (fullDescEl) document.getElementById('lb-desc').innerHTML = fullDescEl.innerHTML;
+          else if (descEl) document.getElementById('lb-desc').textContent = descEl.textContent;
+          if (metaEl) {
+            var html = '';
+            metaEl.querySelectorAll('.apt-meta-item').forEach(function(item) {
+              html += '<span>' + item.innerHTML + '</span>';
+            });
+            document.getElementById('lb-meta').innerHTML = html;
+          }
+        }
+      }
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+      if (e && e.target !== e.currentTarget && e.target.closest('.lb-content')) return;
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function lbSlide(dir) {
+      var car = document.getElementById(lbState.carId);
+      if (!car) return;
+      var imgs = car.querySelectorAll('.slide-img');
+      if (!imgs.length) return;
+      var next = (lbState.idx + dir + imgs.length) % imgs.length;
+      openLightbox(lbState.carId, next);
+    }
+    document.getElementById('lb-prev').addEventListener('click', function(){ lbSlide(-1); });
+    document.getElementById('lb-next').addEventListener('click', function(){ lbSlide(1); });
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbSlide(-1);
+      if (e.key === 'ArrowRight') lbSlide(1);
+    });
+  </script>
+
+</body>
+</html>
