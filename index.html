@@ -650,16 +650,16 @@
     }
     .payment-grid {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
-      max-width: 900px;
+      gap: 12px;
+      max-width: 860px;
       margin: 0 auto;
     }
     .pm-card {
-      flex: 1 1 0;
-      max-width: 170px;
-      min-width: 0;
+      flex: 1 1 150px;
+      max-width: 200px;
+      min-width: 140px;
       background: var(--dark-card);
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 16px;
@@ -772,6 +772,76 @@
       border: 1px solid rgba(201,168,76,0.2);
       position: relative;
       z-index: 1;
+    }
+    .pm-card.clickable {
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .pm-card.clickable:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+    .pm-card.clickable.expanded {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(201,168,76,0.2);
+      border-color: rgba(201,168,76,0.4);
+      max-width: 280px !important;
+    }
+    .pm-details {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: right;
+      width: 100%;
+    }
+    .pm-details.open {
+      display: block;
+    }
+    .pmd-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 6px 0;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .pmd-label {
+      color: var(--gray);
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .pmd-value {
+      color: var(--gold-light);
+      font-weight: 700;
+      direction: ltr;
+      display: inline-block;
+      font-size: 0.75rem;
+      word-break: break-all;
+    }
+    .copy-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    .copy-btn.copied {
+      background: var(--green);
+      border-color: var(--green);
     }
 
     /* === FOOTER === */
@@ -1430,30 +1500,42 @@
     </div>
 
     <!-- PAYMENT METHODS -->
+    <!-- PAYMENT METHODS -->
     <section class="payment-section">
       <h3>وسائل <span>الدفع</span></h3>
-      <p>ادفع بأريحية — اختر ما يناسبك</p>
+      <p>اختر وسيلة الدفع وادفع مباشرة — بدون حاجة للتواصل ✨</p>
       <div class="payment-grid">
         <!-- تحويل بنكي -->
-        <div class="pm-card" style="max-width:200px;">
+        <div class="pm-card clickable" onclick="togglePayment('bank')" id="pm-bank">
           <div class="pm-icon" style="background:#1a3a5c;color:#fff;font-size:1.2rem;">🏦</div>
           <div class="pm-name" style="color:#60a5fa;">تحويل بنكي</div>
-          <div class="pm-desc">حول على الحساب<br>وتواصل معنا للتأكيد</div>
-          <div class="pm-badge">متاح</div>
+          <div class="pm-desc">حول على الحساب<br>بنك الراجحي</div>
+          <div class="pm-badge">اضغط للتفاصيل ▼</div>
+          <div class="pm-details" id="pmd-bank">
+            <div class="pmd-row"><span class="pmd-label">البنك:</span> <span>بنك الراجحي</span></div>
+            <div class="pmd-row"><span class="pmd-label">اسم المستفيد:</span> <span>أزهار</span></div>
+            <div class="pmd-row"><span class="pmd-label">الآيبان:</span> <span class="pmd-value" id="iban-value">SA0580000495608016006480</span> <button class="copy-btn" onclick="copyText('SA0580000495608016006480', this)">📋</button></div>
+          </div>
         </div>
         <!-- STC Pay -->
-        <div class="pm-card" style="max-width:200px;">
+        <div class="pm-card clickable" onclick="togglePayment('stc')" id="pm-stc">
           <div class="pm-icon" style="background:#7c3aed;color:#fff;font-size:1.2rem;">📱</div>
           <div class="pm-name" style="color:#a78bfa;">STC Pay</div>
           <div class="pm-desc">ادفع عبر محفظة<br>STC Pay بسرعة</div>
-          <div class="pm-badge">متاح</div>
+          <div class="pm-badge">اضغط للتفاصيل ▼</div>
+          <div class="pm-details" id="pmd-stc">
+            <div class="pmd-row"><span class="pmd-label">رقم STC Pay:</span> <span class="pmd-value" id="stc-value">0557594116</span> <button class="copy-btn" onclick="copyText('0557594116', this)">📋</button></div>
+          </div>
         </div>
         <!-- محفظة برق -->
-        <div class="pm-card" style="max-width:200px;">
+        <div class="pm-card clickable" onclick="togglePayment('barq')" id="pm-barq">
           <div class="pm-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:1.2rem;">⚡</div>
           <div class="pm-name" style="color:#fbbf24;">محفظة برق</div>
           <div class="pm-desc">ادفع عبر محفظة<br>برق الإلكترونية</div>
-          <div class="pm-badge">متاح</div>
+          <div class="pm-badge">اضغط للتفاصيل ▼</div>
+          <div class="pm-details" id="pmd-barq">
+            <div class="pmd-row"><span class="pmd-label">رقم برق:</span> <span class="pmd-value" id="barq-value">0557594116</span> <button class="copy-btn" onclick="copyText('0557594116', this)">📋</button></div>
+          </div>
         </div>
       </div>
     </section>
@@ -1913,6 +1995,60 @@
       if (e.key === 'ArrowLeft') lbSlide(-1);
       if (e.key === 'ArrowRight') lbSlide(1);
     });
+
+    // ====== PAYMENT DETAILS TOGGLE ======
+    function togglePayment(id) {
+      var allDetails = document.querySelectorAll('.pm-details');
+      var allCards = document.querySelectorAll('.pm-card.clickable');
+      var details = document.getElementById('pmd-' + id);
+      var card = document.getElementById('pm-' + id);
+      var isOpen = details.classList.contains('open');
+
+      // Close all
+      allDetails.forEach(function(d) { d.classList.remove('open'); });
+      allCards.forEach(function(c) { c.classList.remove('expanded'); });
+      allCards.forEach(function(c) {
+        var badge = c.querySelector('.pm-badge');
+        if (badge) badge.textContent = 'اضغط للتفاصيل ▼';
+      });
+
+      // Toggle clicked
+      if (!isOpen) {
+        details.classList.add('open');
+        card.classList.add('expanded');
+        var badge = card.querySelector('.pm-badge');
+        if (badge) badge.textContent = '▲ إخفاء';
+      }
+    }
+
+    function copyText(text, btn) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          btn.textContent = '✅';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.textContent = '📋';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      } else {
+        // Fallback for older browsers
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = '✅';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = '📋';
+          btn.classList.remove('copied');
+        }, 2000);
+      }
+    }
   </script>
 
 </body>
