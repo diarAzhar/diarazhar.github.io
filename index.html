@@ -533,36 +533,6 @@
     .cal-legend-dot.book { background: var(--red); }
 
     /* Calendar control buttons */
-    .cal-control {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-top: 10px;
-    }
-    .cal-control button {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--gray);
-      font-size: 0.75rem;
-      padding: 4px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'Cairo', sans-serif;
-    }
-    .cal-control button:hover {
-      background: rgba(255,255,255,0.05);
-      color: #fff;
-    }
-    .cal-control button.locked {
-      border-color: var(--red);
-      color: var(--red);
-    }
-    .cal-control button.unlocked {
-      border-color: var(--green);
-      color: var(--green);
-    }
-
     /* === BOOKING INFO === */
     .booking-bar {
       background: rgba(201,168,76,0.08);
@@ -1186,9 +1156,7 @@
               <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
             </div>
           </div>
-          <div class="cal-control">
-            <button class="unlocked" data-key="cal1" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
-          </div>
+          
 
           <!-- Booking bar -->
           <div class="booking-bar" id="booking1">
@@ -1301,9 +1269,7 @@
               <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
             </div>
           </div>
-          <div class="cal-control">
-            <button class="unlocked" data-key="cal2" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
-          </div>
+          
 
           <!-- Booking bar -->
           <div class="booking-bar" id="booking2">
@@ -1396,9 +1362,7 @@
               <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
             </div>
           </div>
-          <div class="cal-control">
-            <button class="unlocked" data-key="cal5" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
-          </div>
+          
 
           <div class="booking-bar" id="booking5">
             <div class="dates">📅 <span id="bk5-dates">اختر التاريخ</span></div>
@@ -1486,9 +1450,7 @@
               <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
             </div>
           </div>
-          <div class="cal-control">
-            <button class="unlocked" data-key="cal6" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
-          </div>
+          
 
           <div class="booking-bar" id="booking6">
             <div class="dates">📅 <span id="bk6-dates">اختر التاريخ</span></div>
@@ -1590,9 +1552,7 @@
               <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
             </div>
           </div>
-          <div class="cal-control">
-            <button class="unlocked" data-key="cal3" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
-          </div>
+          
 
           <!-- Booking bar -->
           <div class="booking-bar" id="booking3">
@@ -1647,9 +1607,7 @@
               <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
             </div>
           </div>
-          <div class="cal-control">
-            <button class="unlocked" data-key="cal4" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
-          </div>
+          
 
           <!-- Booking bar -->
           <div class="booking-bar" id="booking4">
@@ -1703,9 +1661,7 @@
               <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
             </div>
           </div>
-          <div class="cal-control">
-            <button class="unlocked" data-key="cal7" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
-          </div>
+          
 
           <div class="booking-bar" id="booking7">
             <div class="dates">📅 <span id="bk7-dates">اختر التاريخ</span></div>
@@ -1758,9 +1714,7 @@
               <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
             </div>
           </div>
-          <div class="cal-control">
-            <button class="unlocked" data-key="cal8" onclick="toggleLock(this.dataset.key, this)">🔒 قفل</button>
-          </div>
+          
 
           <div class="booking-bar" id="booking8">
             <div class="dates">📅 <span id="bk8-dates">اختر التاريخ</span></div>
@@ -2371,14 +2325,7 @@
       const calMap = {cal1:booked1,cal2:booked2,cal3:booked3,cal4:booked4,cal5:booked5,cal6:booked6,cal7:booked7,cal8:booked8};
       renderCalendar(key, calMap[key]);
     }
-    // Attach lock buttons
-    document.querySelectorAll('.cal-control button').forEach(function(btn) {
-      const key = btn.dataset.key;
-      if (localStorage.getItem('lock_' + key) === 'true') {
-        btn.textContent = '🔓 مفتوح';
-        btn.classList.add('locked');
-      }
-    });
+
   </script>
 
   <!-- LIGHTBOX -->
