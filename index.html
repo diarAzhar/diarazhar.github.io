@@ -2282,20 +2282,21 @@
       var notesHtml = notes ? '<div class="bk-cb-row"><span class="bk-cb-label">📝 ملاحظات:</span><span class="bk-cb-value">' + notes + '</span></div>' : '';
 
       confirmedDiv.innerHTML =
-        '<div class="bk-cb-title">✅ تم تأكيد الحجز!</div>' +
+        '<div class="bk-cb-title">✅ تم تأكيد حجزك ' + name + ' 🎉</div>' +
         '<div class="bk-cb-card">' +
-        '<div class="bk-cb-row"><span class="bk-cb-label">🏠 العقار:</span><span class="bk-cb-value gold">' + prop.name + '</span></div>' +
-        '<div class="bk-cb-row"><span class="bk-cb-label">📍 الموقع:</span><span class="bk-cb-value"><a href="' + prop.location.replace('اضغط للموقع: ', '') + '" target="_blank" style="color:var(--accent);">🗺️ اضغط لفتح الخريطة</a></span></div>' +
+        '<div style="text-align:center;margin-bottom:10px;color:var(--gray);font-size:0.85rem;">مرحباً ' + name + '، شكراً لاختيارك الإقامة في ' + prop.name + ' 🌟</div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">📍 الموقع:</span><span class="bk-cb-value"><a href="' + prop.location.replace('اضغط للموقع: ', '') + '" target="_blank" style="color:var(--accent);">🗺️ افتح الخريطة</a></span></div>' +
         '<div class="bk-cb-row"><span class="bk-cb-label">📅 الحجز:</span><span class="bk-cb-value">' + startD + ' ← ' + endD + '</span></div>' +
         '<div class="bk-cb-row"><span class="bk-cb-label">💰 الإجمالي:</span><span class="bk-cb-value gold">' + total.toLocaleString() + ' ريال</span></div>' +
         '<div style="margin:10px 0;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);"></div>' +
         '<div class="bk-cb-row"><span class="bk-cb-label">⏰ الدخول:</span><span class="bk-cb-value">3 مساءً</span></div>' +
         '<div class="bk-cb-row"><span class="bk-cb-label">⏰ المغادرة:</span><span class="bk-cb-value">1 مساءً</span></div>' +
-        '<div class="bk-cb-row"><span class="bk-cb-label">🔑 رمز الدخول:</span><span class="bk-cb-value code">' + prop.code + '</span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">🔑 رمز الدخول:</span><span class="bk-cb-value">' + prop.code + '</span></div>' +
         (prop.wifi ? '<div class="bk-cb-row" style="flex-direction:column;align-items:flex-start;"><span class="bk-cb-label">' + prop.wifi + '</span></div>' : '') +
         '<div class="bk-cb-row"><span class="bk-cb-label">📌 ملاحظات:</span><span class="bk-cb-value">' + prop.notes + '</span></div>' +
         notesHtml +
-        '</div>';
+        '</div>' +
+        '<div style="text-align:center;margin-top:8px;color:var(--gold-light);font-size:0.75rem;">تحياتي المضيف: أزهار 🤍</div>';
 
       confirmedDiv.classList.add('show');
 
@@ -2305,7 +2306,7 @@
 
       // إرسال واتساب للعميل
       var waMsg = encodeURIComponent(
-        '✅ تم تأكيد حجزك في ' + prop.name + ' 🎉\n\n' +
+        'مرحباً ' + name + '،\nشكراً لاختيارك الإقامة في ' + prop.name + ' 🌟\n\n' +
         '📍 الموقع\n' + prop.location.replace('اضغط للموقع: ', '') + '\n\n' +
         '⏰ الدخول: 3 مساءً | المغادرة: 1 مساءً\n' +
         '📅 من ' + startD + ' إلى ' + endD + ' (' + nights + ' ليلة)\n' +
@@ -2313,7 +2314,8 @@
         '🔑 رمز الدخول: ' + prop.code + '\n\n' +
         (prop.wifi ? prop.wifi + '\n\n' : '') +
         prop.notes + '\n\n' +
-        'شكرًا لاختيارك ديار أزهار 🤍'
+        'نتمنى لك إقامة ممتعة 🤍\n' +
+        'تحياتي المضيف: أزهار'
       );
       window.open('https://wa.me/' + phone.replace(/^0/, '966') + '?text=' + waMsg, '_blank');
 
