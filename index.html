@@ -635,7 +635,169 @@
     }
     .bk-pi-copy:hover { background: var(--gold); border-color: var(--gold); }
     .bk-pi-copy.copied { background: var(--green); border-color: var(--green); }
+    .bk-confirm-pay { display: none; margin-top: 10px; }
+    .bk-confirm-pay.show { display: block; }
+    .bk-confirm-pay-btn {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), #a58a3a);
+      color: var(--dark);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Cairo', sans-serif;
+    }
+    .bk-confirm-pay-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 5px 20px rgba(201,168,76,0.4);
+    }
     .booking-bar .btn-whatsapp { align-self: center; }
+
+    /* === MODAL === */
+    .bk-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 99998;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .bk-modal-overlay.open { display: flex; }
+    .bk-modal {
+      background: var(--dark-card);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      direction: rtl;
+    }
+    .bk-modal h3 { font-size: 1.4rem; color: var(--gold); margin-bottom: 15px; text-align: center; }
+    .bk-modal-close {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.05);
+      border: none;
+      color: #fff;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    .bk-modal-close:hover { background: rgba(255,255,255,0.15); }
+    .bk-modal-summary {
+      background: rgba(201,168,76,0.08);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .bk-modal-form label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+    .bk-input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+      transition: border 0.2s;
+    }
+    .bk-input:focus { outline: none; border-color: var(--gold); }
+    .bk-input::placeholder { color: rgba(255,255,255,0.3); }
+    .bk-confirm-btn {
+      display: block;
+      width: 100%;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 18px;
+      font-family: 'Cairo', sans-serif;
+      transition: all 0.3s;
+    }
+    .bk-confirm-btn:hover { transform: scale(1.02); box-shadow: 0 8px 25px rgba(201,168,76,0.3); }
+
+    /* === CONFIRMATION RESULT === */
+    .bk-confirmed-box {
+      display: none;
+      margin-top: 12px;
+      width: 100%;
+      text-align: right;
+    }
+    .bk-confirmed-box.show { display: block; }
+    .bk-cb-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .bk-cb-card {
+      background: rgba(81,207,102,0.1);
+      border: 1px solid rgba(81,207,102,0.2);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 10px;
+    }
+    .bk-cb-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      font-size: 0.85rem;
+      gap: 10px;
+    }
+    .bk-cb-label { color: var(--gray); font-weight: 600; white-space: nowrap; }
+    .bk-cb-value { color: #fff; font-weight: 700; text-align: left; }
+    .bk-cb-value.gold { color: var(--gold-light); }
+    .bk-cb-value.code {
+      background: rgba(255,255,255,0.1);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+    }
+    .bk-wa-confirm-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--whatsapp);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+    .bk-wa-confirm-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(37,211,102,0.3); }
 
     .btn-whatsapp {
       display: inline-flex;
@@ -1039,6 +1201,9 @@
                 <div class="bk-pay-btn" onclick="showPayment('barq','bk1')">⚡ برق</div>
               </div>
               <div class="bk-pay-info" id="bk1-pay-info"></div>
+              <div class="bk-confirm-pay" id="bk1-confirm">
+                <button class="bk-confirm-pay-btn" onclick="openBkModal('bk1')">✅ تأكيد الحجز</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1151,6 +1316,9 @@
                 <div class="bk-pay-btn" onclick="showPayment('barq','bk2')">⚡ برق</div>
               </div>
               <div class="bk-pay-info" id="bk2-pay-info"></div>
+              <div class="bk-confirm-pay" id="bk2-confirm">
+                <button class="bk-confirm-pay-btn" onclick="openBkModal('bk2')">✅ تأكيد الحجز</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1242,6 +1410,9 @@
                 <div class="bk-pay-btn" onclick="showPayment('barq','bk5')">⚡ برق</div>
               </div>
               <div class="bk-pay-info" id="bk5-pay-info"></div>
+              <div class="bk-confirm-pay" id="bk5-confirm">
+                <button class="bk-confirm-pay-btn" onclick="openBkModal('bk5')">✅ تأكيد الحجز</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1329,6 +1500,9 @@
                 <div class="bk-pay-btn" onclick="showPayment('barq','bk6')">⚡ برق</div>
               </div>
               <div class="bk-pay-info" id="bk6-pay-info"></div>
+              <div class="bk-confirm-pay" id="bk6-confirm">
+                <button class="bk-confirm-pay-btn" onclick="openBkModal('bk6')">✅ تأكيد الحجز</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1431,6 +1605,9 @@
                 <div class="bk-pay-btn" onclick="showPayment('barq','bk3')">⚡ برق</div>
               </div>
               <div class="bk-pay-info" id="bk3-pay-info"></div>
+              <div class="bk-confirm-pay" id="bk3-confirm">
+                <button class="bk-confirm-pay-btn" onclick="openBkModal('bk3')">✅ تأكيد الحجز</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1485,6 +1662,9 @@
                 <div class="bk-pay-btn" onclick="showPayment('barq','bk4')">⚡ برق</div>
               </div>
               <div class="bk-pay-info" id="bk4-pay-info"></div>
+              <div class="bk-confirm-pay" id="bk4-confirm">
+                <button class="bk-confirm-pay-btn" onclick="openBkModal('bk4')">✅ تأكيد الحجز</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1537,6 +1717,9 @@
                 <div class="bk-pay-btn" onclick="showPayment('barq','bk7')">⚡ برق</div>
               </div>
               <div class="bk-pay-info" id="bk7-pay-info"></div>
+              <div class="bk-confirm-pay" id="bk7-confirm">
+                <button class="bk-confirm-pay-btn" onclick="openBkModal('bk7')">✅ تأكيد الحجز</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1589,6 +1772,9 @@
                 <div class="bk-pay-btn" onclick="showPayment('barq','bk8')">⚡ برق</div>
               </div>
               <div class="bk-pay-info" id="bk8-pay-info"></div>
+              <div class="bk-confirm-pay" id="bk8-confirm">
+                <button class="bk-confirm-pay-btn" onclick="openBkModal('bk8')">✅ تأكيد الحجز</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1922,15 +2108,28 @@
         datesSpan.textContent = `من ${startD} إلى ${endD} | ${nights} ليلة × ${info.price} ريال = ${total.toLocaleString()} ريال`;
         bar.classList.add('show');
         if (payOptions) payOptions.classList.add('show');
+        // Hide any previous confirmation
+        var confirmDiv = document.getElementById('bk' + info.id + '-confirm');
+        if (confirmDiv) confirmDiv.classList.remove('show');
+        var confirmedBox = document.getElementById('bk' + info.id + '-confirmed');
+        if (confirmedBox) { confirmedBox.classList.remove('show'); confirmedBox.innerHTML = ''; }
       } else if (s.start && !s.end) {
         datesSpan.textContent = `تاريخ البداية: ${s.start.day}/${s.start.month+1}/${s.start.year} — اختر تاريخ النهاية`;
         bar.classList.add('show');
         if (payOptions) payOptions.classList.remove('show');
         if (payInfo) { payInfo.classList.remove('show'); payInfo.innerHTML = ''; }
+        var confirmDiv = document.getElementById('bk' + info.id + '-confirm');
+        if (confirmDiv) confirmDiv.classList.remove('show');
+        var confirmedBox = document.getElementById('bk' + info.id + '-confirmed');
+        if (confirmedBox) { confirmedBox.classList.remove('show'); confirmedBox.innerHTML = ''; }
       } else {
         bar.classList.remove('show');
         if (payOptions) payOptions.classList.remove('show');
         if (payInfo) { payInfo.classList.remove('show'); payInfo.innerHTML = ''; }
+        var confirmDiv = document.getElementById('bk' + info.id + '-confirm');
+        if (confirmDiv) confirmDiv.classList.remove('show');
+        var confirmedBox = document.getElementById('bk' + info.id + '-confirmed');
+        if (confirmedBox) { confirmedBox.classList.remove('show'); confirmedBox.innerHTML = ''; }
       }
     }
 
@@ -1948,6 +2147,175 @@
         { label: 'رقم برق', val: '0557594116' }
       ]}
     };
+
+    // ====== PROPERTY INFO PER UNIT ======
+    // ✏️ عدّل هذه البيانات حسب معلومات كل وحدة
+    const PROPERTY_INFO = {
+      '1': { // الشقة 1 - كوزي
+        name: 'الشقة 1 - كوزي',
+        location: 'حي قرطبة، بريدة',
+        access: '📌 أدخل من الباب الرئيسي، الطابق الثاني',
+        code: '1234',
+        notes: 'موقف السيارة أمام المبنى'
+      },
+      '2': { // الشقة 2 - فندقية
+        name: 'الشقة 2 - فندقية',
+        location: 'حي الريان، بريدة',
+        access: '📌 أدخل من المدخل الرئيسي، الشقة يسار',
+        code: '5678',
+        notes: 'موقف سيارات متاح'
+      },
+      '5': { // الشقة 3
+        name: 'الشقة 3 - اتساع وراحة',
+        location: 'حي قرطبة، بريدة',
+        access: '📌 المدخل من الأمام',
+        code: '9012',
+        notes: 'قريب من الخدمات'
+      },
+      '6': { // الشقة 4
+        name: 'الشقة 4 - موقع مركزي',
+        location: 'حي النهضة (بجوار شارع البخاري)، بريدة',
+        access: '📌 المدخل من الشارع العام',
+        code: '3456',
+        notes: 'موقف خاص'
+      },
+      '3': { // الشاليه 1
+        name: 'شاليه 1 - ونيس',
+        location: 'حي ضراس، بريدة',
+        access: '📌 المدخل من البوابة الرئيسية',
+        code: '7890',
+        notes: 'مسبح خارجي متاح'
+      },
+      '4': { // الشاليه 2
+        name: 'الشاليه 2 - VIP',
+        location: 'بريدة',
+        access: '📌 المدخل من البوابة الرئيسية',
+        code: '2468',
+        notes: 'جاكوزي ومسبح داخلي'
+      },
+      '7': { // الشاليه 3
+        name: 'الشاليه 3',
+        location: 'بريدة',
+        access: '📌 المدخل من البوابة الرئيسية',
+        code: '1357',
+        notes: 'إطلالة على المسبح'
+      },
+      '8': { // الشاليه 4
+        name: 'الشاليه 4',
+        location: 'بريدة',
+        access: '📌 المدخل من البوابة الرئيسية',
+        code: '8642',
+        notes: 'خيمة ريفية وجلسة شعبية'
+      }
+    };
+
+    // ====== BOOKING STATE ======
+    var currentBookingPref = null;
+
+    function openBkModal(pref) {
+      // Map pref to key
+      var keyMap = {bk1:'cal1',bk2:'cal2',bk3:'cal3',bk4:'cal4',bk5:'cal5',bk6:'cal6',bk7:'cal7',bk8:'cal8'};
+      var key = keyMap[pref];
+      var s = state[key];
+      var info = nameMap[key];
+      if (!s.start || !s.end) return;
+
+      var startD = s.start.day + '/' + (s.start.month+1) + '/' + s.start.year;
+      var endD = s.end.day + '/' + (s.end.month+1) + '/' + s.end.year;
+      var nights = Math.round((new Date(s.end.year, s.end.month, s.end.day) - new Date(s.start.year, s.start.month, s.start.day)) / 86400000);
+      var total = nights * info.price;
+
+      currentBookingPref = pref;
+
+      document.getElementById('bk-modal-summary').innerHTML =
+        '<strong>' + info.name + '</strong><br>' +
+        '📅 ' + startD + ' → ' + endD + ' (' + nights + ' ليلة)<br>' +
+        '💰 ' + total.toLocaleString() + ' ريال';
+
+      document.getElementById('bk-cust-name').value = '';
+      document.getElementById('bk-cust-phone').value = '';
+      document.getElementById('bk-cust-notes').value = '';
+
+      document.getElementById('bkModal').classList.add('open');
+    }
+
+    function closeBkModal(e) {
+      if (e && e.target !== e.currentTarget) return;
+      document.getElementById('bkModal').classList.remove('open');
+    }
+
+    function confirmBooking() {
+      var name = document.getElementById('bk-cust-name').value.trim();
+      var phone = document.getElementById('bk-cust-phone').value.trim();
+      if (!name || !phone) {
+        alert('الرجاء إدخال الاسم ورقم الجوال');
+        return;
+      }
+
+      var pref = currentBookingPref;
+      if (!pref) return;
+
+      var keyMap = {bk1:'cal1',bk2:'cal2',bk3:'cal3',bk4:'cal4',bk5:'cal5',bk6:'cal6',bk7:'cal7',bk8:'cal8'};
+      var key = keyMap[pref];
+      var s = state[key];
+      var info = nameMap[key];
+      var prop = PROPERTY_INFO[info.id];
+
+      var startD = s.start.day + '/' + (s.start.month+1) + '/' + s.start.year;
+      var endD = s.end.day + '/' + (s.end.month+1) + '/' + s.end.year;
+      var nights = Math.round((new Date(s.end.year, s.end.month, s.end.day) - new Date(s.start.year, s.start.month, s.start.day)) / 86400000);
+      var total = nights * info.price;
+
+      // إظهار معلومات الوصول في الموقع
+      var bar = document.getElementById('booking' + info.id);
+      var confirmedDiv = document.getElementById(pref + '-confirmed');
+      if (!confirmedDiv) {
+        // Create it
+        confirmedDiv = document.createElement('div');
+        confirmedDiv.className = 'bk-confirmed-box';
+        confirmedDiv.id = pref + '-confirmed';
+        bar.appendChild(confirmedDiv);
+      }
+
+      var notes = document.getElementById('bk-cust-notes').value.trim();
+      var notesHtml = notes ? '<div class="bk-cb-row"><span class="bk-cb-label">📝 ملاحظات:</span><span class="bk-cb-value">' + notes + '</span></div>' : '';
+
+      confirmedDiv.innerHTML =
+        '<div class="bk-cb-title">✅ تم تأكيد الحجز!</div>' +
+        '<div class="bk-cb-card">' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">🏠 العقار:</span><span class="bk-cb-value gold">' + prop.name + '</span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">📍 الموقع:</span><span class="bk-cb-value">' + prop.location + '</span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">📅 الحجز:</span><span class="bk-cb-value">' + startD + ' → ' + endD + '</span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">💰 الإجمالي:</span><span class="bk-cb-value gold">' + total.toLocaleString() + ' ريال</span></div>' +
+        '<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);"></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">🔑 رمز الدخول:</span><span class="bk-cb-value code">' + prop.code + '</span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">📍 تعليمات الوصول:</span><span class="bk-cb-value">' + prop.access + '</span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">📌 ملاحظات:</span><span class="bk-cb-value">' + prop.notes + '</span></div>' +
+        notesHtml +
+        '</div>';
+
+      confirmedDiv.classList.add('show');
+
+      // إخفاء خيارات الدفع بعد التأكيد
+      var payOptions = document.getElementById(pref + '-pay');
+      if (payOptions) payOptions.classList.remove('show');
+
+      // إرسال واتساب للعميل
+      var waMsg = encodeURIComponent(
+        '✅ تم تأكيد حجزك في ' + prop.name + ' 🎉\n\n' +
+        '📍 الموقع: ' + prop.location + '\n' +
+        '📅 من ' + startD + ' إلى ' + endD + ' (' + nights + ' ليلة)\n' +
+        '💰 الإجمالي: ' + total.toLocaleString() + ' ريال\n' +
+        '🔑 رمز الدخول: ' + prop.code + '\n' +
+        '📍 تعليمات الوصول: ' + prop.access + '\n' +
+        '📌 ' + prop.notes + '\n\n' +
+        'شكرًا لاختيارك ديار أزهار 🤍'
+      );
+      window.open('https://wa.me/' + phone.replace(/^0/, '966') + '?text=' + waMsg, '_blank');
+
+      // إغلاق المودال
+      document.getElementById('bkModal').classList.remove('open');
+    }
 
     function showPayment(type, pref) {
       var info = document.getElementById(pref + '-pay-info');
@@ -1980,6 +2348,13 @@
       info.innerHTML = html;
       info.dataset.type = type;
       info.classList.add('show');
+
+      // Show confirm button
+      var confirmDiv = document.getElementById(pref + '-confirm');
+      if (confirmDiv) {
+        confirmDiv.classList.add('show');
+        confirmDiv.dataset.type = type;
+      }
     }
 
     function bkCopy(text, btn) {
@@ -2189,6 +2564,25 @@
       }
     }
   </script>
+
+
+  <!-- CONFIRMATION MODAL -->
+  <div class="bk-modal-overlay" id="bkModal" onclick="closeBkModal(event)">
+    <div class="bk-modal" onclick="event.stopPropagation()">
+      <button class="bk-modal-close" onclick="closeBkModal()">✕</button>
+      <h3>✅ تأكيد الحجز</h3>
+      <div id="bk-modal-summary" class="bk-modal-summary"></div>
+      <div class="bk-modal-form">
+        <label>الاسم <span style="color:var(--red);">*</span></label>
+        <input type="text" id="bk-cust-name" class="bk-input" placeholder="الاسم كامل" />
+        <label>رقم الجوال <span style="color:var(--red);">*</span></label>
+        <input type="tel" id="bk-cust-phone" class="bk-input" placeholder="05xxxxxxxx" />
+        <label>ملاحظات (اختياري)</label>
+        <textarea id="bk-cust-notes" class="bk-input" rows="2" placeholder="أي ملاحظات إضافية"></textarea>
+      </div>
+      <button class="bk-confirm-btn" onclick="confirmBooking()">🔒 تأكيد الحجز</button>
+    </div>
+  </div>
 
 </body>
 </html>
