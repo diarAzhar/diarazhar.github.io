@@ -2461,60 +2461,7 @@
       if (e.key === 'ArrowRight') lbSlide(1);
     });
 
-    // ====== PAYMENT DETAILS TOGGLE ======
-    function togglePayment(id) {
-      var allDetails = document.querySelectorAll('.pm-details');
-      var allCards = document.querySelectorAll('.pm-card.clickable');
-      var details = document.getElementById('pmd-' + id);
-      var card = document.getElementById('pm-' + id);
-      var isOpen = details.classList.contains('open');
-
-      // Close all
-      allDetails.forEach(function(d) { d.classList.remove('open'); });
-      allCards.forEach(function(c) { c.classList.remove('expanded'); });
-      allCards.forEach(function(c) {
-        var badge = c.querySelector('.pm-badge');
-        if (badge) badge.textContent = 'اضغط للتفاصيل ▼';
-      });
-
-      // Toggle clicked
-      if (!isOpen) {
-        details.classList.add('open');
-        card.classList.add('expanded');
-        var badge = card.querySelector('.pm-badge');
-        if (badge) badge.textContent = '▲ إخفاء';
-      }
-    }
-
-    function copyText(text, btn) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function() {
-          btn.textContent = '✅';
-          btn.classList.add('copied');
-          setTimeout(function() {
-            btn.textContent = '📋';
-            btn.classList.remove('copied');
-          }, 2000);
-        });
-      } else {
-        // Fallback for older browsers
-        var ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.left = '-9999px';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        btn.textContent = '✅';
-        btn.classList.add('copied');
-        setTimeout(function() {
-          btn.textContent = '📋';
-          btn.classList.remove('copied');
-        }, 2000);
-      }
-    }
-  </script>
+    // ====== PAYMENT DETAILS TOGGLE ======  </script>
 
 
   <!-- CONFIRMATION MODAL -->
