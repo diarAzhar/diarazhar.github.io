@@ -2154,60 +2154,12 @@
       '1': { // الشقة 1 - كوزي
         name: 'الشقة 1 - كوزي',
         location: 'اضغط للموقع: https://maps.app.goo.gl/tbngjKLfcZokUJuU7',
-        access: '⏰ الدخول 3 مساء | المغادرة 1 مساء',
+        access: '⏰ الدخول 3 مساءً | المغادرة 1 مساءً',
         code: 'يرسل في وقت الدخول',
+        // wifi only sent via WhatsApp for security
         wifi: '📶 الشبكة: SH 5G | الرمز: @Mm103050',
-        notes: 'موقف السيارة أمام المبنى | إن احتجت شي، تواصل معنا 🤍'
-      },
-      '2': { // الشقة 2 - فندقية
-        name: 'الشقة 2 - فندقية',
-        location: 'حي الريان، بريدة',
-        access: '📌 أدخل من المدخل الرئيسي، الشقة يسار',
-        code: '5678',
-        notes: 'موقف سيارات متاح'
-      },
-      '5': { // الشقة 3
-        name: 'الشقة 3 - اتساع وراحة',
-        location: 'حي قرطبة، بريدة',
-        access: '📌 المدخل من الأمام',
-        code: '9012',
-        notes: 'قريب من الخدمات'
-      },
-      '6': { // الشقة 4
-        name: 'الشقة 4 - موقع مركزي',
-        location: 'حي النهضة (بجوار شارع البخاري)، بريدة',
-        access: '📌 المدخل من الشارع العام',
-        code: '3456',
-        notes: 'موقف خاص'
-      },
-      '3': { // الشاليه 1
-        name: 'شاليه 1 - ونيس',
-        location: 'حي ضراس، بريدة',
-        access: '📌 المدخل من البوابة الرئيسية',
-        code: '7890',
-        notes: 'مسبح خارجي متاح'
-      },
-      '4': { // الشاليه 2
-        name: 'الشاليه 2 - VIP',
-        location: 'بريدة',
-        access: '📌 المدخل من البوابة الرئيسية',
-        code: '2468',
-        notes: 'جاكوزي ومسبح داخلي'
-      },
-      '7': { // الشاليه 3
-        name: 'الشاليه 3',
-        location: 'بريدة',
-        access: '📌 المدخل من البوابة الرئيسية',
-        code: '1357',
-        notes: 'إطلالة على المسبح'
-      },
-      '8': { // الشاليه 4
-        name: 'الشاليه 4',
-        location: 'بريدة',
-        access: '📌 المدخل من البوابة الرئيسية',
-        code: '8642',
-        notes: 'خيمة ريفية وجلسة شعبية'
-      }
+        notes: 'موقف السيارة أمام المبنى | تواصل معنا لأي استفسار 🤍'
+      }]]
     };
 
     // ====== BOOKING STATE ======
@@ -2282,21 +2234,17 @@
       var notesHtml = notes ? '<div class="bk-cb-row"><span class="bk-cb-label">📝 ملاحظات:</span><span class="bk-cb-value">' + notes + '</span></div>' : '';
 
       confirmedDiv.innerHTML =
-        '<div class="bk-cb-title">✅ تم تأكيد حجزك ' + name + ' 🎉</div>' +
+        '<div class="bk-cb-title">✅ تم التأكيد ' + name + ' 🎉</div>' +
         '<div class="bk-cb-card">' +
-        '<div style="text-align:center;margin-bottom:10px;color:var(--gray);font-size:0.85rem;">مرحباً ' + name + '، شكراً لاختيارك الإقامة في ' + prop.name + ' 🌟</div>' +
-        '<div class="bk-cb-row"><span class="bk-cb-label">📍 الموقع:</span><span class="bk-cb-value"><a href="' + prop.location.replace('اضغط للموقع: ', '') + '" target="_blank" style="color:var(--accent);">🗺️ افتح الخريطة</a></span></div>' +
+        '<div style="text-align:center;margin-bottom:8px;color:var(--gray);font-size:0.85rem;">مرحباً ' + name + ' 🌟</div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">📍 الموقع:</span><span class="bk-cb-value"><a href="' + prop.location.replace('اضغط للموقع: ', '') + '" target="_blank" style="color:var(--accent);">🗺️ الخريطة</a></span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">⏰ الدخول:</span><span class="bk-cb-value">3م</span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">⏰ المغادرة:</span><span class="bk-cb-value">1م</span></div>' +
         '<div class="bk-cb-row"><span class="bk-cb-label">📅 الحجز:</span><span class="bk-cb-value">' + startD + ' ← ' + endD + '</span></div>' +
         '<div class="bk-cb-row"><span class="bk-cb-label">💰 الإجمالي:</span><span class="bk-cb-value gold">' + total.toLocaleString() + ' ريال</span></div>' +
-        '<div style="margin:10px 0;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);"></div>' +
-        '<div class="bk-cb-row"><span class="bk-cb-label">⏰ الدخول:</span><span class="bk-cb-value">3 مساءً</span></div>' +
-        '<div class="bk-cb-row"><span class="bk-cb-label">⏰ المغادرة:</span><span class="bk-cb-value">1 مساءً</span></div>' +
-        '<div class="bk-cb-row"><span class="bk-cb-label">🔑 رمز الدخول:</span><span class="bk-cb-value">' + prop.code + '</span></div>' +
-        (prop.wifi ? '<div class="bk-cb-row" style="flex-direction:column;align-items:flex-start;"><span class="bk-cb-label">' + prop.wifi + '</span></div>' : '') +
-        '<div class="bk-cb-row"><span class="bk-cb-label">📌 ملاحظات:</span><span class="bk-cb-value">' + prop.notes + '</span></div>' +
         notesHtml +
         '</div>' +
-        '<div style="text-align:center;margin-top:8px;color:var(--gold-light);font-size:0.75rem;">تحياتي المضيف: أزهار 🤍</div>';
+        '<div style="text-align:center;color:var(--gold-light);font-size:0.8rem;">📱 ستصل التفاصيل الكاملة عبر واتساب 🤍</div>';
 
       confirmedDiv.classList.add('show');
 
