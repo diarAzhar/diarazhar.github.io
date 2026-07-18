@@ -2153,10 +2153,11 @@
     const PROPERTY_INFO = {
       '1': { // الشقة 1 - كوزي
         name: 'الشقة 1 - كوزي',
-        location: 'حي قرطبة، بريدة',
-        access: '📌 أدخل من الباب الرئيسي، الطابق الثاني',
-        code: '1234',
-        notes: 'موقف السيارة أمام المبنى'
+        location: 'اضغط للموقع: https://maps.app.goo.gl/tbngjKLfcZokUJuU7',
+        access: '⏰ الدخول 3 مساء | المغادرة 1 مساء',
+        code: 'يرسل في وقت الدخول',
+        wifi: '📶 الشبكة: SH 5G | الرمز: @Mm103050',
+        notes: 'موقف السيارة أمام المبنى | إن احتجت شي، تواصل معنا 🤍'
       },
       '2': { // الشقة 2 - فندقية
         name: 'الشقة 2 - فندقية',
@@ -2284,12 +2285,14 @@
         '<div class="bk-cb-title">✅ تم تأكيد الحجز!</div>' +
         '<div class="bk-cb-card">' +
         '<div class="bk-cb-row"><span class="bk-cb-label">🏠 العقار:</span><span class="bk-cb-value gold">' + prop.name + '</span></div>' +
-        '<div class="bk-cb-row"><span class="bk-cb-label">📍 الموقع:</span><span class="bk-cb-value">' + prop.location + '</span></div>' +
-        '<div class="bk-cb-row"><span class="bk-cb-label">📅 الحجز:</span><span class="bk-cb-value">' + startD + ' → ' + endD + '</span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">📍 الموقع:</span><span class="bk-cb-value"><a href="' + prop.location.replace('اضغط للموقع: ', '') + '" target="_blank" style="color:var(--accent);">🗺️ اضغط لفتح الخريطة</a></span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">📅 الحجز:</span><span class="bk-cb-value">' + startD + ' ← ' + endD + '</span></div>' +
         '<div class="bk-cb-row"><span class="bk-cb-label">💰 الإجمالي:</span><span class="bk-cb-value gold">' + total.toLocaleString() + ' ريال</span></div>' +
-        '<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);"></div>' +
+        '<div style="margin:10px 0;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);"></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">⏰ الدخول:</span><span class="bk-cb-value">3 مساءً</span></div>' +
+        '<div class="bk-cb-row"><span class="bk-cb-label">⏰ المغادرة:</span><span class="bk-cb-value">1 مساءً</span></div>' +
         '<div class="bk-cb-row"><span class="bk-cb-label">🔑 رمز الدخول:</span><span class="bk-cb-value code">' + prop.code + '</span></div>' +
-        '<div class="bk-cb-row"><span class="bk-cb-label">📍 تعليمات الوصول:</span><span class="bk-cb-value">' + prop.access + '</span></div>' +
+        (prop.wifi ? '<div class="bk-cb-row" style="flex-direction:column;align-items:flex-start;"><span class="bk-cb-label">' + prop.wifi + '</span></div>' : '') +
         '<div class="bk-cb-row"><span class="bk-cb-label">📌 ملاحظات:</span><span class="bk-cb-value">' + prop.notes + '</span></div>' +
         notesHtml +
         '</div>';
@@ -2303,12 +2306,13 @@
       // إرسال واتساب للعميل
       var waMsg = encodeURIComponent(
         '✅ تم تأكيد حجزك في ' + prop.name + ' 🎉\n\n' +
-        '📍 الموقع: ' + prop.location + '\n' +
+        '📍 الموقع\n' + prop.location.replace('اضغط للموقع: ', '') + '\n\n' +
+        '⏰ الدخول: 3 مساءً | المغادرة: 1 مساءً\n' +
         '📅 من ' + startD + ' إلى ' + endD + ' (' + nights + ' ليلة)\n' +
         '💰 الإجمالي: ' + total.toLocaleString() + ' ريال\n' +
-        '🔑 رمز الدخول: ' + prop.code + '\n' +
-        '📍 تعليمات الوصول: ' + prop.access + '\n' +
-        '📌 ' + prop.notes + '\n\n' +
+        '🔑 رمز الدخول: ' + prop.code + '\n\n' +
+        (prop.wifi ? prop.wifi + '\n\n' : '') +
+        prop.notes + '\n\n' +
         'شكرًا لاختيارك ديار أزهار 🤍'
       );
       window.open('https://wa.me/' + phone.replace(/^0/, '966') + '?text=' + waMsg, '_blank');
