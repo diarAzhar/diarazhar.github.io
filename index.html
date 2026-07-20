@@ -2205,7 +2205,7 @@
       var payOptions = document.getElementById(pref + '-pay');
       if (payOptions) payOptions.classList.remove('show');
 
-      // إرسال واتساب للعميل
+      // فتح واتساب على رقم المضيف مع رسالة ترحيب للعميل
       var waMsg = encodeURIComponent(
         'مرحباً ' + name + '،\nشكراً لاختيارك الإقامة في ' + prop.name + ' 🌟\n\n' +
         '📍 الموقع\n' + prop.location.replace('اضغط للموقع: ', '') + '\n\n' +
@@ -2215,9 +2215,9 @@
         '🔑 رمز الدخول: ' + prop.code + '\n\n' +
         prop.notes + '\n\n' +
         'نتمنى لك إقامة ممتعة 🤍\n' +
-        'تحياتي المضيف: أزهار'
+        'تحياتي: أزهار'
       );
-      window.open('https://wa.me/' + phone.replace(/^0/, '966') + '?text=' + waMsg, '_blank');
+      window.open('https://wa.me/' + WA_NUMBER + '?text=' + waMsg, '_blank');
 
       // إغلاق المودال
       document.getElementById('bkModal').classList.remove('open');
