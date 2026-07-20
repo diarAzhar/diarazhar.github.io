@@ -2115,7 +2115,8 @@
         access: '⏰ الدخول 3 مساءً | المغادرة 1 مساءً',
         code: 'يرسل في وقت الدخول',
         notes: '',
-        buildingLink: 'https://diarazhar.github.io/building.html'
+        buildingLink: 'https://diarazhar.github.io/building.html',
+        floorNote: '• شقة رقم ٤ بالدور الأرضي 🚪'
       },
       '2': { // الشقة 2 - فندقية
         name: 'الشقة 2 - فندقية',
@@ -2123,15 +2124,17 @@
         access: '⏰ الدخول 3 مساءً | المغادرة 1 مساءً',
         code: 'يرسل في وقت الدخول',
         notes: '',
-        buildingLink: 'https://diarazhar.github.io/building-2.html'
+        buildingLink: 'https://diarazhar.github.io/building-2.html',
+        floorNote: '• شقة رقم ٤ بالدور الأرضي 🚪'
       },
-      '5': { // الشقة 3
-        name: 'الشقة 3',
+      '5': { // الشقة 3 - اتساع وراحة
+        name: 'الشقة 3 - اتساع وراحة',
         location: 'اضغط للموقع: https://maps.app.goo.gl/tbngjKLfcZokUJuU7',
         access: '⏰ الدخول 3 مساءً | المغادرة 1 مساءً',
         code: 'يرسل في وقت الدخول',
         notes: '',
-        buildingLink: 'https://diarazhar.github.io/building.html'
+        buildingLink: 'https://diarazhar.github.io/building-3.html',
+        floorNote: '• شقة رقم ١٣ بالدور الثاني 🚪'
       }
     };
 
@@ -2229,7 +2232,7 @@
       var waMsg = encodeURIComponent(
         'مرحباً ' + name + '،\nشكراً لاختيارك الإقامة في ' + prop.name + ' 🌟\n\n' +
         '📸 صور العمارة: ' + prop.buildingLink + '\n' +
-        '• شقة رقم ٤ بالدور الأرضي 🚪\n\n' +
+        prop.floorNote + '\n\n' +
         '📍 الموقع\n' + prop.location.replace('اضغط للموقع: ', '') + '\n\n' +
         '⏰ الدخول: 3 مساءً | المغادرة: 1 مساءً\n' +
         '📅 من ' + startD + ' إلى ' + endD + ' (' + nights + ' ليلة)\n' +
