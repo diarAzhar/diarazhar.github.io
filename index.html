@@ -1588,7 +1588,10 @@
             <div class="apt-meta-item"><span class="icon">📶</span> واي فاي</div>
             <div class="apt-meta-item"><span class="icon">🔐</span> دخول ذاتي</div>
           </div>
-          <div class="apt-price">800 <small>ريال / ليلة</small></div>
+          <div class="apt-price">
+            <div class="price-line"><span class="tag">💼 وسط الأسبوع</span> 250 <small>ريال / ليلة</small></div>
+            <div class="price-line"><span class="tag">🌙 الويكند (خميس-سبت)</span> 350 <small>ريال / ليلة</small></div>
+          </div>
 
           <!-- Calendar -->
           <div class="calendar-section">
@@ -2112,7 +2115,7 @@
     const PRICES = {
       cal1: { weekday: 150, weekend: 190 }, // الشقة 1
       cal2: { weekday: 180, weekend: 220 }, // الشقة 2
-      // cal3: { weekday: 0, weekend: 0 }, // الشاليه 1
+      cal3: { weekday: 250, weekend: 350 }, // الشاليه 1 (ونيس)
       // cal4: { weekday: 0, weekend: 0 }, // الشاليه 2
       cal5: { weekday: 150, weekend: 190 }, // الشقة 3 (نفس سعر الشقة 1)
       cal6: { weekday: 180, weekend: 220 }, // الشقة 4
