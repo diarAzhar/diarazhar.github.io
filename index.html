@@ -2033,7 +2033,9 @@
             let cls = 'cal-day';
             if (dateStr === todayStr) cls += ' today';
             const isLocked = localStorage.getItem('lock_' + key) === 'true';
-            if (bookedSet.has(dateStr) || (isLocked && dateStr >= todayStr)) cls += ' booked';
+            const closedUntil = CLOSED_UNTIL[key];
+            const isClosed = closedUntil && dateStr <= closedUntil;
+            if (bookedSet.has(dateStr) || isClosed || (isLocked && dateStr >= todayStr)) cls += ' booked';
             else cls += ' available';
 
             // Selected range highlight
@@ -2121,6 +2123,12 @@
       cal6: { weekday: 180, weekend: 220 }, // الشقة 4
       // cal7: { weekday: 0, weekend: 0 }, // الشاليه 3
       // cal8: { weekday: 0, weekend: 0 }, // الشاليه 4
+    };
+
+    // ====== قفل الحجز حتى تاريخ معين (YYYY-MM-DD) ======
+    // كل الأيام حتى هذا التاريخ (شاملة) تظهر محجوزة وما تنحجز
+    const CLOSED_UNTIL = {
+      cal1: '2026-10-03', // الشقة 1 — مقفلة حتى 3 أكتوبر
     };
 
     function isWeekendNight(y, m, d) {
