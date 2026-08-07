@@ -30,7 +30,7 @@
     "addressCountry": "SA"
   },
   "areaServed": "القصيم، بريدة",
-  "priceRange": "350-1200 SAR",
+  "priceRange": "150-1200 SAR",
   "image": "https://diarazhar.github.io/site-profile.jpg"
 }
 </script>
@@ -378,6 +378,16 @@
       color: var(--gray);
       font-weight: 400;
     }
+    .lightbox .lb-details .lb-price .price-line {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .lightbox .lb-details .lb-price .price-line .tag {
+      color: var(--gray);
+      font-size: 0.8rem;
+    }
     .lightbox .lb-details p {
       color: var(--gray);
       font-size: 0.85rem;
@@ -429,6 +439,21 @@
       color: var(--gold);
     }
     .apt-price small {
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 400;
+    }
+    .apt-price .price-line {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--gold);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+      line-height: 1.6;
+    }
+    .apt-price .price-line .tag {
       font-size: 0.8rem;
       color: var(--gray);
       font-weight: 400;
@@ -1155,7 +1180,10 @@
             <div class="apt-meta-item"><span class="icon">☕</span> ركن قهوة فاخر</div>
             <div class="apt-meta-item"><span class="icon">👕</span> غسالة ملابس ذكية</div>
           </div>
-          <div class="apt-price">350 <small>ريال / ليلة</small></div>
+          <div class="apt-price">
+            <div class="price-line"><span class="tag">💼 وسط الأسبوع</span> 150 <small>ريال / ليلة</small></div>
+            <div class="price-line"><span class="tag">🌙 الويكند (خميس-سبت)</span> 190 <small>ريال / ليلة</small></div>
+          </div>
 
           <!-- Calendar -->
           <div class="calendar-section">
@@ -2069,6 +2097,43 @@
       cal8: { id: '8', name: 'الشاليه 4', price: 950 },
     };
 
+    // ====== الأسعار: وسط الأسبوع / الويكند ======
+    // الويكند = خميس، جمعة، سبت (أي ليلة تقع في هذي الأيام تُحسب بسعر الويكند)
+    // ✏️ عدّل الأسعار هنا لكل وحدة
+    const PRICES = {
+      cal1: { weekday: 150, weekend: 190 }, // الشقة 1
+      // cal2: { weekday: 0, weekend: 0 }, // الشقة 2 — بانتظار الأسعار
+      // cal3: { weekday: 0, weekend: 0 }, // الشاليه 1
+      // cal4: { weekday: 0, weekend: 0 }, // الشاليه 2
+      // cal5: { weekday: 0, weekend: 0 }, // الشقة 3
+      // cal6: { weekday: 0, weekend: 0 }, // الشقة 4
+      // cal7: { weekday: 0, weekend: 0 }, // الشاليه 3
+      // cal8: { weekday: 0, weekend: 0 }, // الشاليه 4
+    };
+
+    function isWeekendNight(y, m, d) {
+      const day = new Date(y, m, d).getDay(); // 0=أحد ... 4=خميس, 5=جمعة, 6=سبت
+      return day === 4 || day === 5 || day === 6;
+    }
+
+    // يحسب الإجمالي حسب الليالي (ويكند/وسط أسبوع). إذا ما فيه أسعار مسجلة للوحدة يرجع null
+    function calcTotal(key, start, end) {
+      const p = PRICES[key];
+      if (!p) return null;
+      let total = 0, wk = 0, wd = 0;
+      const cur = new Date(start.year, start.month, start.day);
+      const last = new Date(end.year, end.month, end.day);
+      while (cur < last) {
+        if (isWeekendNight(cur.getFullYear(), cur.getMonth(), cur.getDate())) {
+          total += p.weekend; wk++;
+        } else {
+          total += p.weekday; wd++;
+        }
+        cur.setDate(cur.getDate() + 1);
+      }
+      return { total: total, wk: wk, wd: wd };
+    }
+
     function updateBookingBar(key) {
       const s = state[key];
       const info = nameMap[key];
@@ -2081,8 +2146,15 @@
         const startD = `${s.start.day}/${s.start.month+1}/${s.start.year}`;
         const endD = `${s.end.day}/${s.end.month+1}/${s.end.year}`;
         const nights = Math.round((new Date(s.end.year, s.end.month, s.end.day) - new Date(s.start.year, s.start.month, s.start.day)) / 86400000);
-        const total = nights * info.price;
-        datesSpan.textContent = `من ${startD} إلى ${endD} | ${nights} ليلة × ${info.price} ريال = ${total.toLocaleString()} ريال`;
+        const calc = calcTotal(key, s.start, s.end);
+        let summary;
+        if (calc) {
+          summary = `من ${startD} إلى ${endD} | ${nights} ليلة (${calc.wk} ويكند + ${calc.wd} وسط أسبوع) = ${calc.total.toLocaleString()} ريال`;
+        } else {
+          const total = nights * info.price;
+          summary = `من ${startD} إلى ${endD} | ${nights} ليلة × ${info.price} ريال = ${total.toLocaleString()} ريال`;
+        }
+        datesSpan.textContent = summary;
         bar.classList.add('show');
         if (payOptions) payOptions.classList.add('show');
         // Hide any previous confirmation
@@ -2183,14 +2255,16 @@
       var startD = s.start.day + '/' + (s.start.month+1) + '/' + s.start.year;
       var endD = s.end.day + '/' + (s.end.month+1) + '/' + s.end.year;
       var nights = Math.round((new Date(s.end.year, s.end.month, s.end.day) - new Date(s.start.year, s.start.month, s.start.day)) / 86400000);
-      var total = nights * info.price;
+      var calc = calcTotal(key, s.start, s.end);
+      var total = calc ? calc.total : nights * info.price;
+      var breakdown = calc ? ' (' + calc.wk + ' ويكند + ' + calc.wd + ' وسط أسبوع)' : '';
 
       currentBookingPref = pref;
 
       document.getElementById('bk-modal-summary').innerHTML =
         '<strong>' + info.name + '</strong><br>' +
         '📅 ' + startD + ' → ' + endD + ' (' + nights + ' ليلة)<br>' +
-        '💰 ' + total.toLocaleString() + ' ريال';
+        '💰 ' + total.toLocaleString() + ' ريال' + breakdown;
 
       document.getElementById('bk-cust-name').value = '';
       document.getElementById('bk-cust-phone').value = '';
@@ -2224,7 +2298,8 @@
       var startD = s.start.day + '/' + (s.start.month+1) + '/' + s.start.year;
       var endD = s.end.day + '/' + (s.end.month+1) + '/' + s.end.year;
       var nights = Math.round((new Date(s.end.year, s.end.month, s.end.day) - new Date(s.start.year, s.start.month, s.start.day)) / 86400000);
-      var total = nights * info.price;
+      var calc = calcTotal(key, s.start, s.end);
+      var total = calc ? calc.total : nights * info.price;
 
       // إظهار معلومات الوصول في الموقع
       var bar = document.getElementById('booking' + info.id);
