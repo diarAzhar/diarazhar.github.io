@@ -1296,7 +1296,10 @@
             <div class="apt-meta-item"><span class="icon">👕</span> غسالة ملابس ذكية</div>
             <div class="apt-meta-item"><span class="icon">🔐</span> دخول ذاتي</div>
           </div>
-          <div class="apt-price">550 <small>ريال / ليلة</small></div>
+          <div class="apt-price">
+            <div class="price-line"><span class="tag">💼 وسط الأسبوع</span> 180 <small>ريال / ليلة</small></div>
+            <div class="price-line"><span class="tag">🌙 الويكند (خميس-سبت)</span> 220 <small>ريال / ليلة</small></div>
+          </div>
 
           <!-- Calendar -->
           <div class="calendar-section">
@@ -2102,7 +2105,7 @@
     // ✏️ عدّل الأسعار هنا لكل وحدة
     const PRICES = {
       cal1: { weekday: 150, weekend: 190 }, // الشقة 1
-      // cal2: { weekday: 0, weekend: 0 }, // الشقة 2 — بانتظار الأسعار
+      cal2: { weekday: 180, weekend: 220 }, // الشقة 2
       // cal3: { weekday: 0, weekend: 0 }, // الشاليه 1
       // cal4: { weekday: 0, weekend: 0 }, // الشاليه 2
       // cal5: { weekday: 0, weekend: 0 }, // الشقة 3
