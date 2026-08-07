@@ -1988,15 +1988,16 @@
     const WA_NUMBER = '966557594116'; // ← غيّر هذا لرقمك
 
     // State per calendar
+    const _now = new Date();
     const state = {
-      cal1: { year: 2026, month: 5, start: null, end: null }, // month 5 = June (0-indexed)
-      cal2: { year: 2026, month: 5, start: null, end: null },
-      cal3: { year: 2026, month: 5, start: null, end: null },
-      cal4: { year: 2026, month: 5, start: null, end: null },
-      cal5: { year: 2026, month: 5, start: null, end: null },
-      cal6: { year: 2026, month: 5, start: null, end: null },
-      cal7: { year: 2026, month: 5, start: null, end: null },
-      cal8: { year: 2026, month: 5, start: null, end: null },
+      cal1: { year: _now.getFullYear(), month: _now.getMonth(), start: null, end: null },
+      cal2: { year: _now.getFullYear(), month: _now.getMonth(), start: null, end: null },
+      cal3: { year: _now.getFullYear(), month: _now.getMonth(), start: null, end: null },
+      cal4: { year: _now.getFullYear(), month: _now.getMonth(), start: null, end: null },
+      cal5: { year: _now.getFullYear(), month: _now.getMonth(), start: null, end: null },
+      cal6: { year: _now.getFullYear(), month: _now.getMonth(), start: null, end: null },
+      cal7: { year: _now.getFullYear(), month: _now.getMonth(), start: null, end: null },
+      cal8: { year: _now.getFullYear(), month: _now.getMonth(), start: null, end: null },
     };
 
     function fmtDate(y, m, d) {
@@ -2015,6 +2016,18 @@
         'يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'
       ];
       label.textContent = `${monthNames[s.month]} ${s.year}`;
+
+      // تعطيل زر الشهر السابق إذا كنا بالشهر الحالي (ما نرجع لأشهر سابقة)
+      const nav = label.closest('.calendar-nav');
+      if (nav) {
+        const prevBtn = nav.querySelector('button');
+        const now = new Date();
+        const isCurrentMonth = (s.year === now.getFullYear() && s.month === now.getMonth());
+        if (prevBtn) {
+          prevBtn.disabled = isCurrentMonth;
+          prevBtn.style.opacity = isCurrentMonth ? '0.25' : '1';
+        }
+      }
 
       const firstDay = new Date(s.year, s.month, 1).getDay(); // 0=Sun
       const daysInMonth = new Date(s.year, s.month + 1, 0).getDate();
@@ -2453,6 +2466,10 @@
 
     function changeMonth(key, dir) {
       const s = state[key];
+      const now = new Date();
+      const currentIdx = now.getFullYear() * 12 + now.getMonth();
+      const targetIdx = s.year * 12 + s.month + dir;
+      if (targetIdx < currentIdx) return; // ما نسمح بالرجوع لشهور سابقة
       s.month += dir;
       if (s.month < 0) { s.month = 11; s.year--; }
       if (s.month > 11) { s.month = 0; s.year++; }
