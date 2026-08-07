@@ -4,4 +4,20 @@
     <loc>https://diarazhar.github.io/</loc>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://diarazhar.github.io/building.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://diarazhar.github.io/building-2.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://diarazhar.github.io/building-3.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://diarazhar.github.io/building-4.html</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>
