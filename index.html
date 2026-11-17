@@ -522,6 +522,7 @@
       position: relative;
     }
     .cal-day.other-month { opacity: 0.2; }
+    .cal-day.past-hidden { visibility: hidden; pointer-events: none; }
     .cal-day.available {
       background: rgba(81, 207, 102, 0.15);
       color: var(--green);
@@ -2100,6 +2101,12 @@
             html += `<div class="cal-day other-month">${prevDate}</div>`;
           } else if (dayCount <= daysInMonth) {
             const dateStr = fmtDate(s.year, s.month, dayCount);
+            // الأيام السابقة لا تظهر إطلاقاً
+            if (dateStr < todayStr) {
+              html += `<div class="cal-day past-hidden"></div>`;
+              dayCount++;
+              continue;
+            }
             let cls = 'cal-day';
             if (dateStr === todayStr) cls += ' today';
             const isLocked = localStorage.getItem('lock_' + key) === 'true';
@@ -2524,6 +2531,21 @@
       if (s.month > 11) { s.month = 0; s.year++; }
       renderCalendar(key, bookedMap[key]);
     }
+
+    // إعادة الرسم تلقائياً عند تغيّر اليوم (يتحدّث عند منتصف الليل أو رجوع التبويب)
+    (function watchDayChange() {
+      var lastDay = new Date().toDateString();
+      function refreshIfNewDay() {
+        var cur = new Date().toDateString();
+        if (cur === lastDay) return;
+        lastDay = cur;
+        const m = {cal1:booked1,cal2:booked2,cal3:booked3,cal4:booked4,
+                   cal5:booked5,cal6:booked6,cal7:booked7,cal8:booked8};
+        Object.keys(m).forEach(function(k){ renderCalendar(k, m[k]); });
+      }
+      setInterval(refreshIfNewDay, 60000);
+      document.addEventListener('visibilitychange', function(){ if (!document.hidden) refreshIfNewDay(); });
+    })();
 
     // Init
     renderCalendar('cal1', booked1);
