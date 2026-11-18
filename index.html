@@ -232,10 +232,10 @@
     }
     .apt-carousel .arrow {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 36px;
-      height: 36px;
+      top: 12px;
+      transform: none;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: rgba(0,0,0,0.5);
       color: #fff;
@@ -250,10 +250,10 @@
     }
     .apt-carousel .arrow:hover {
       background: rgba(0,0,0,0.7);
-      transform: translateY(-50%) scale(1.1);
+      transform: scale(1.1);
     }
     .apt-carousel .arrow-left { left: 8px; }
-    .apt-carousel .arrow-right { right: 8px; }
+    .apt-carousel .arrow-right { left: 50px; right: auto; }
     .apt-img { height: 220px; }
 
     /* === LIGHTBOX === */
@@ -294,10 +294,11 @@
     }
     .lightbox .lb-img-wrap .lb-arrow-onimage {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
+      top: auto;
+      bottom: 12px;
+      transform: none;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: rgba(0,0,0,0.55);
       color: #fff;
@@ -314,10 +315,10 @@
     .lightbox .lb-img-wrap .lb-arrow-onimage:hover {
       background: rgba(0,0,0,0.8);
       border-color: var(--gold);
-      transform: translateY(-50%) scale(1.12);
+      transform: scale(1.12);
     }
-    .lightbox .lb-img-wrap .lb-arrow-onimage.prev { left: 10px; }
-    .lightbox .lb-img-wrap .lb-arrow-onimage.next { right: 10px; }
+    .lightbox .lb-img-wrap .lb-arrow-onimage.prev { left: 12px; }
+    .lightbox .lb-img-wrap .lb-arrow-onimage.next { left: 60px; right: auto; }
     .lightbox .lb-content {
       display: flex;
       flex-direction: column;
