@@ -1128,6 +1128,103 @@
 
     <div class="apartments-grid">
 
+      <!-- Apartment 3 -->
+      <div class="apt-card">
+        <div class="apt-carousel" id="car3">
+          <img class="slide-img active" src="img/apt3-2.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-1.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-3.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-4.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-5.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-6.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-7.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-8.jpg" alt="الشقة 3">
+          <img class="slide-img" src="img/apt3-9.jpg" alt="الشقة 3">
+          <button class="arrow arrow-left">‹</button>
+          <button class="arrow arrow-right">›</button>
+          <div class="dots" id="car3-dots">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+        </div>
+        <div class="apt-body">
+          <div class="apt-name">شقة 3 - اتساع وراحة</div>
+          <div class="apt-desc">
+            شقة مريحة وواسعة - حي قرطبة شمال بريدة
+          </div>
+          <div class="apt-full-desc" style="display:none;">
+            <b>🏠 مميزات المكان:</b><br>
+            • 🛏️ غرفة نوم بسرير كبير<br>
+            • 🛋️ صالة مريحة<br>
+            • 🍳 مطبخ مجهز<br>
+            • 📺 شاشة تلفاز<br>
+            • 🎬 اشتراك Netflix<br>
+            • ☕ ركن قهوة<br>
+            • 🔐 دخول ذاتي<br>
+            • 👕 غسالة ملابس ذكية<br><br>
+            🗺️ <b>موقع مميز:</b><br>
+            • قريب من جميع الاحتياجات اليومية مثل:<br>
+            • سوبرماركت • مطاعم • مقاهي • مغسلة ملابس
+          </div>
+          <div class="apt-meta">
+            <div class="apt-meta-item"><span class="icon">🛏️</span> غرفة نوم بسرير كبير</div>
+            <div class="apt-meta-item"><span class="icon">🛋️</span> صالة مريحة</div>
+            <div class="apt-meta-item"><span class="icon">🔐</span> دخول ذاتي</div>
+            <div class="apt-meta-item"><span class="icon">📶</span> انترنت سريع الياف بصرية</div>
+            <div class="apt-meta-item"><span class="icon">🍳</span> مطبخ مجهز</div>
+            <div class="apt-meta-item"><span class="icon">📺</span> شاشة تلفاز</div>
+            <div class="apt-meta-item"><span class="icon">🎬</span> اشتراك Netflix</div>
+            <div class="apt-meta-item"><span class="icon">☕</span> ركن قهوة</div>
+            <div class="apt-meta-item"><span class="icon">👕</span> غسالة ملابس ذكية</div>
+          </div>
+          <div class="apt-price">
+            <div class="price-line"><span class="tag">💼 وسط الأسبوع</span> 180 <small>ريال / ليلة</small></div>
+            <div class="price-line"><span class="tag">🌙 الويكند + الإجازات</span> 220 <small>ريال / ليلة</small></div>
+            <div class="apt-price-note">شامل المبيت</div>
+            <div class="price-line"><span class="tag">📆 شهري</span> 2600 <small>ريال / شهر</small></div>
+          </div>
+
+          <div class="calendar-section">
+            <h3>📅 تقويم الحجز — الشقة 3</h3>
+            <div class="calendar-nav">
+              <button onclick="changeMonth('cal5', -1)">‹</button>
+              <span class="month-label" id="cal5-label"></span>
+              <button onclick="changeMonth('cal5', 1)">›</button>
+            </div>
+            <div class="calendar-grid" id="cal5-grid"></div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot avail"></div> متاح</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
+            </div>
+          </div>
+
+
+          <div class="booking-bar" id="booking5">
+            <div class="dates">📅 <span id="bk5-dates">اختر التاريخ</span></div>
+            <div class="bk-payment-options" id="bk5-pay">
+              <div class="bk-pay-title">💳 اختر وسيلة الدفع:</div>
+              <div class="bk-pay-grid">
+                <div class="bk-pay-btn" onclick="showPayment('bank','bk5')">🏦 تحويل بنكي</div>
+                <div class="bk-pay-btn" onclick="showPayment('stc','bk5')">📱 STC Pay</div>
+                <div class="bk-pay-btn" onclick="showPayment('barq','bk5')">⚡ برق</div>
+              </div>
+              <div class="bk-pay-info" id="bk5-pay-info"></div>
+              <div class="bk-confirm-pay" id="bk5-confirm">
+                <button class="bk-confirm-pay-btn" onclick="openBkModal('bk5')">✅ تأكيد الحجز</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Apartment 1 -->
       <div class="apt-card">
         <div class="apt-carousel" id="car1">
@@ -1340,103 +1437,6 @@
               <div class="bk-pay-info" id="bk2-pay-info"></div>
               <div class="bk-confirm-pay" id="bk2-confirm">
                 <button class="bk-confirm-pay-btn" onclick="openBkModal('bk2')">✅ تأكيد الحجز</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apartment 3 -->
-      <div class="apt-card">
-        <div class="apt-carousel" id="car3">
-          <img class="slide-img active" src="img/apt3-2.jpg" alt="الشقة 3">
-          <img class="slide-img" src="img/apt3-1.jpg" alt="الشقة 3">
-          <img class="slide-img" src="img/apt3-3.jpg" alt="الشقة 3">
-          <img class="slide-img" src="img/apt3-4.jpg" alt="الشقة 3">
-          <img class="slide-img" src="img/apt3-5.jpg" alt="الشقة 3">
-          <img class="slide-img" src="img/apt3-6.jpg" alt="الشقة 3">
-          <img class="slide-img" src="img/apt3-7.jpg" alt="الشقة 3">
-          <img class="slide-img" src="img/apt3-8.jpg" alt="الشقة 3">
-          <img class="slide-img" src="img/apt3-9.jpg" alt="الشقة 3">
-          <button class="arrow arrow-left">‹</button>
-          <button class="arrow arrow-right">›</button>
-          <div class="dots" id="car3-dots">
-            <span class="active"></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          
-        </div>
-        <div class="apt-body">
-          <div class="apt-name">شقة 3 - اتساع وراحة</div>
-          <div class="apt-desc">
-            شقة مريحة وواسعة - حي قرطبة شمال بريدة
-          </div>
-          <div class="apt-full-desc" style="display:none;">
-            <b>🏠 مميزات المكان:</b><br>
-            • 🛏️ غرفة نوم بسرير كبير<br>
-            • 🛋️ صالة مريحة<br>
-            • 🍳 مطبخ مجهز<br>
-            • 📺 شاشة تلفاز<br>
-            • 🎬 اشتراك Netflix<br>
-            • ☕ ركن قهوة<br>
-            • 🔐 دخول ذاتي<br>
-            • 👕 غسالة ملابس ذكية<br><br>
-            🗺️ <b>موقع مميز:</b><br>
-            • قريب من جميع الاحتياجات اليومية مثل:<br>
-            • سوبرماركت • مطاعم • مقاهي • مغسلة ملابس
-          </div>
-          <div class="apt-meta">
-            <div class="apt-meta-item"><span class="icon">🛏️</span> غرفة نوم بسرير كبير</div>
-            <div class="apt-meta-item"><span class="icon">🛋️</span> صالة مريحة</div>
-            <div class="apt-meta-item"><span class="icon">🔐</span> دخول ذاتي</div>
-            <div class="apt-meta-item"><span class="icon">📶</span> انترنت سريع الياف بصرية</div>
-            <div class="apt-meta-item"><span class="icon">🍳</span> مطبخ مجهز</div>
-            <div class="apt-meta-item"><span class="icon">📺</span> شاشة تلفاز</div>
-            <div class="apt-meta-item"><span class="icon">🎬</span> اشتراك Netflix</div>
-            <div class="apt-meta-item"><span class="icon">☕</span> ركن قهوة</div>
-            <div class="apt-meta-item"><span class="icon">👕</span> غسالة ملابس ذكية</div>
-          </div>
-          <div class="apt-price">
-            <div class="price-line"><span class="tag">💼 وسط الأسبوع</span> 180 <small>ريال / ليلة</small></div>
-            <div class="price-line"><span class="tag">🌙 الويكند + الإجازات</span> 220 <small>ريال / ليلة</small></div>
-            <div class="apt-price-note">شامل المبيت</div>
-            <div class="price-line"><span class="tag">📆 شهري</span> 2600 <small>ريال / شهر</small></div>
-          </div>
-
-          <div class="calendar-section">
-            <h3>📅 تقويم الحجز — الشقة 3</h3>
-            <div class="calendar-nav">
-              <button onclick="changeMonth('cal5', -1)">‹</button>
-              <span class="month-label" id="cal5-label"></span>
-              <button onclick="changeMonth('cal5', 1)">›</button>
-            </div>
-            <div class="calendar-grid" id="cal5-grid"></div>
-            <div class="cal-legend">
-              <div class="cal-legend-item"><div class="cal-legend-dot avail"></div> متاح</div>
-              <div class="cal-legend-item"><div class="cal-legend-dot book"></div> محجوز</div>
-            </div>
-          </div>
-          
-
-          <div class="booking-bar" id="booking5">
-            <div class="dates">📅 <span id="bk5-dates">اختر التاريخ</span></div>
-            <div class="bk-payment-options" id="bk5-pay">
-              <div class="bk-pay-title">💳 اختر وسيلة الدفع:</div>
-              <div class="bk-pay-grid">
-                <div class="bk-pay-btn" onclick="showPayment('bank','bk5')">🏦 تحويل بنكي</div>
-                <div class="bk-pay-btn" onclick="showPayment('stc','bk5')">📱 STC Pay</div>
-                <div class="bk-pay-btn" onclick="showPayment('barq','bk5')">⚡ برق</div>
-              </div>
-              <div class="bk-pay-info" id="bk5-pay-info"></div>
-              <div class="bk-confirm-pay" id="bk5-confirm">
-                <button class="bk-confirm-pay-btn" onclick="openBkModal('bk5')">✅ تأكيد الحجز</button>
               </div>
             </div>
           </div>
